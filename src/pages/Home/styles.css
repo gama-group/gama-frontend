@@ -1,0 +1,74 @@
+.header {
+  background-color: white;
+  box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;    
+  align-items: center;
+  padding: 8px 64px 8px;
+  height: 108px;
+}
+
+.header-title {
+  font-family: 'Quicksand' sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  color: #623CEA;
+}
+
+.list-selection-process {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 64px;
+}
+
+.selection-process-card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 36px;
+  margin-bottom: 24px;
+}
+
+.header-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.description-card {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.header-button {
+  background-color: #623CEA;
+  padding: 8px 24px 8px;
+  border-radius: 4px;
+  
+  color: white;
+  font-family: 'Nunito' sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.title-card {
+  font-family: 'Quicksand' sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.deadline-text {
+  font-size: 14px;
+}
+
+.gray-text {
+  font-family: 'Nunito' sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  color: #A6A6A6;
+}

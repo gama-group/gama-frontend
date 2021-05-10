@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,800,800i,900i&display=swap');
+
+
+.form-control {
+
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px 35px;
+
+    position: static;
+    width: 300px;
+    height: 40px;
+
+    border: 2px solid #D0D0D0;
+    box-sizing: border-box;
+    border-radius: 8px;
+
+    flex: none;
+    order: 2;
+    align-self: stretch;
+    flex-grow: 0;
+    margin: 21px 0px;
+}
+
+.emailInput {
+    position: relative;
+}
+
+.emailInput:before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    background: url("../../assets/email-icon.svg") center / contain no-repeat;
+}
+
+.passInput {
+    position: relative;
+}
+
+.passInput:before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    background: url("../../assets/senha-icon.svg") center / contain no-repeat;
+}
+
+
+
+
+
+@media all and (min-width: 480px) {
+    .Login {
+      padding: 60px 0;
+    }
+  
+    .Login form {
+      margin: 0 auto;
+      max-width: 320px;
+    }
+  }

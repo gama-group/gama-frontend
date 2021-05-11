@@ -1,74 +1,142 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,800,800i,900i&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,400i,700,800,800i,900i&display=swap');
 
+/*.clear {
+    clear: both;
+}*/
 
-.form-control {
+p {
+    font-family: 'Nunito Sans';
+    font-weight: 400;
+    color: #000;
+}
 
-    font-family: 'Nunito Sans', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
+.Login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
 
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  background: #ffffff;
+  box-shadow: 0px 2px 21px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 20px 35px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 
-    position: static;
+.Login .topText {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.Login .topText p:first-child {
+    font-family: 'Quicksand';
+    font-weight: 700;
+    font-size: 24px;
+    color: #000;
+}
+
+.Login .topText p:last-child {
+    font-size: 12px;
+}
+
+.Login .control {
     width: 300px;
-    height: 40px;
-
-    border: 2px solid #D0D0D0;
-    box-sizing: border-box;
-    border-radius: 8px;
-
-    flex: none;
-    order: 2;
-    align-self: stretch;
-    flex-grow: 0;
-    margin: 21px 0px;
 }
 
-.emailInput {
-    position: relative;
+.icon {
+  color: #000;
 }
 
-.emailInput:before {
-    content: "";
-    position: absolute;
-    left: 10px;
-    top: 0;
-    bottom: 0;
-    width: 20px;
-    background: url("../../assets/email-icon.svg") center / contain no-repeat;
+::placeholder {
+  color: #000 !important;
+  font-weight: 600;
 }
 
-.passInput {
-    position: relative;
+.Login .emailField,
+.Login .passField {
+  position: relative;
 }
 
-.passInput:before {
-    content: "";
-    position: absolute;
-    left: 10px;
-    top: 0;
-    bottom: 0;
-    width: 20px;
-    background: url("../../assets/senha-icon.svg") center / contain no-repeat;
+.Login .emailIcon,
+.Login .passIcon {
+  position: absolute;
+  z-index: 1;
+  top: 23%;
+  left: 3.5%;
 }
 
+.Login .emailInput,
+.Login .passInput {
+  position: relative;
+  padding: 0 40px;
+}
 
+.Login .passField {
+    margin-bottom: 0;
+}
 
+.Login .forgotText {
+    width: 100%;
+}
 
+.Login .forgotText p {
+    float: right;
+    font-size: 8px;
+}
+
+.Login .buttons {
+    width: 300px;
+    padding: 12px 0;
+}
+
+.Login .buttons .signButton {
+    background-color: #623CEA;
+    border-radius: 4px;
+    width: 100%;
+    max-height: 27px;
+}
+
+.Login .buttons:not(:last-child) {
+    margin-bottom: 0;
+}
+
+.Login .registerText {
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+}
+
+.Login .registerText p:first-child {
+    margin-right: 3px;
+}
+
+.Login .registerText p:last-child {
+    color: #623CEA;
+    font-weight: 700;
+}
+
+.Login .registerText p:first-child,
+.Login .registerText p:last-child {
+    display: inline-block;
+}
+
+.Login .formError {
+    font-size: 12px;
+    font-weight: 300;
+    color: #bb1d2a;
+}
 
 @media all and (min-width: 480px) {
-    .Login {
-      padding: 60px 0;
-    }
-  
-    .Login form {
-      margin: 0 auto;
-      max-width: 320px;
-    }
+  .Login {
+    padding: 30px 0;
   }
+
+  .Login form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+}

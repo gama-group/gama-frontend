@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Form, Button, Icon } from 'react-bulma-components'
 import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -34,79 +34,84 @@ const Login: React.FC = () => {
     validate,
     validateOnChange: false,
     onSubmit: values => {
+      // eslint-disable-next-line no-alert
       alert(JSON.stringify(values, null, 2))
     },
   })
 
   return (
-    <div className="Login">
-      <div className="topText">
-        <p>Login</p>
-        <p>Faça login para obter acesso à área privada.</p>
-      </div>
-      <form onSubmit={formik.handleSubmit}>
-        {formik.errors.email ? (
-          <div>
-            <p className="formError">{formik.errors.email}</p>
-          </div>
-        ) : null}
-        <Form.Field className="emailField">
-          <Form.Control>
-            <Icon className="emailIcon">
-              <FontAwesomeIcon icon={faEnvelope} />
-            </Icon>
-            <Form.Input
-              id="email"
-              placeholder="E-mail"
-              name="email"
-              className="emailInput"
-              onChange={formik.handleChange}
-              value={formik.values.email}
-            />
-          </Form.Control>
-        </Form.Field>
-        {formik.errors.password ? (
-          <div>
-            <p className="formError">{formik.errors.password}</p>
-          </div>
-        ) : null}
-        <Form.Field className="passField">
-          <Form.Control>
-            <Icon className="passIcon">
-              <FontAwesomeIcon icon={faLock} />
-            </Icon>
-            <Form.Input
-              placeholder="Senha"
-              id="password"
-              name="password"
-              type="password"
-              className="passInput"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-            />
-          </Form.Control>
-        </Form.Field>
-        <div className="forgotText">
-          <p>Esqueci minha senha</p>
-        </div>
-        <Button.Group>
+    <div className="login-container">
+      <div className="login-card">
+        <p className="login-title">Login</p>
+        <p className="login-subtitle">
+          Faça login para obter acesso à área privada.
+        </p>
+
+        <form className="login-form" onSubmit={formik.handleSubmit}>
+          {formik.errors.email ? (
+            <div>
+              <p className="login-error">{formik.errors.email}</p>
+            </div>
+          ) : null}
+          <Form.Field>
+            <Form.Control>
+              <Icon align="left" className="login-icon">
+                <FontAwesomeIcon icon={faEnvelope} />
+              </Icon>
+              <Form.Input
+                placeholder="E-mail"
+                id="email"
+                name="email"
+                className="login-input"
+                size="medium"
+                onChange={formik.handleChange}
+                value={formik.values.email}
+              />
+            </Form.Control>
+          </Form.Field>
+
+          {formik.errors.password ? (
+            <div>
+              <p className="login-error">{formik.errors.password}</p>
+            </div>
+          ) : null}
+          <Form.Field>
+            <Form.Control fullwidth>
+              <Icon align="left" className="login-icon">
+                <FontAwesomeIcon icon={faLock} />
+              </Icon>
+              <Form.Input
+                placeholder="Senha"
+                id="password"
+                name="password"
+                type="password"
+                className="login-input"
+                size="medium"
+                onChange={formik.handleChange}
+                value={formik.values.password}
+              />
+            </Form.Control>
+            <div className="login-forgot">
+              <p>Esqueci minha senha</p>
+            </div>
+          </Form.Field>
+
           <Button
-            fullwidth
-            rounded
-            color="primary"
-            className="signButton"
-            onClick={validate}
             type="submit"
+            className="login-button"
+            onClick={validate}
+            fullwidth
           >
             Entrar
           </Button>
-        </Button.Group>
-      </form>
-      <div className="registerText">
-        <p>Não possui uma conta? </p>
-        <a href="./register">
-          <p>Cadastre-se</p>
-        </a>
+        </form>
+
+        <div className="login-redirect">
+          <p>Não possui uma conta? </p>
+          <a href="./register">
+            <p>Cadastre-se</p>
+          </a>
+        </div>
       </div>
     </div>
   )

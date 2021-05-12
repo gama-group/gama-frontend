@@ -1,124 +1,119 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,800,800i,900i&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Quicksand:400,400i,700,800,800i,900i&display=swap');
-
-/*.clear {
-    clear: both;
-}*/
-
 p {
-    font-family: 'Nunito Sans';
-    font-weight: 400;
-    color: #000;
+  font-family: 'Nunito Sans';
+  font-weight: 400;
+  color: #000;
 }
 
-.Login {
+.register-container {
+  width: 100%;
+  height: inherit;
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-card {
+  min-width: 550px;
+  padding: 32px 64px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 360px;
-  width: 25%;
 
   background: #ffffff;
   box-shadow: 0px 2px 21px rgba(0, 0, 0, 0.08);
   border-radius: 16px;
-
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-
 }
 
-.Login .topText {
-    text-align: center;
-    padding-bottom: 20px;
+.register-title {
+  margin-bottom: 8px;
+  font-family: 'Quicksand';
+  font-weight: 700;
+  font-size: 40px;
+  color: #000;
+  text-align: center;
 }
 
-.Login .topText p:first-child {
-    font-family: 'Quicksand';
-    font-weight: 700;
-    font-size: 24px;
-    color: #000;
+.register-subtitle {
+  font-family: Nunito;
+  font-size: 20px;
+  margin-bottom: 24px;
+  text-align: center;
 }
 
-.Login .topText p:last-child {
-    font-size: 12px;
+.register-form {
+  width: 100%;
 }
 
-.Login .control {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 300px;
-}
-
-.icon {
+.register-icon {
   color: #000 !important;
+  font-size: 20px;
 }
 
-::placeholder {
+.register-input::placeholder {
   color: #000 !important;
   font-weight: 600;
 }
 
-.Login .forgotText {
-    width: 100%;
+
+.register-forgot {
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-end;
+
+  font-size: 14px;
 }
 
-.Login .forgotText p {
-    float: right;
-    font-size: 8px;
+.register-button {
+  width: 100%;
+  margin-bottom: 20px;
+
+  border-radius: 4px;
+  background-color: #623CEA;
+  color: white;
+  font-size: 20px;
 }
 
-.Login .buttons {
-    width: 300px;
-    padding: 12px 0;
+.register-button:hover {
+  color: white;
+  background-color: #5432cf;
 }
 
-.Login .buttons .signButton {
-    background-color: #623CEA;
-    border-radius: 4px;
-    width: 100%;
-    max-height: 27px;
+.register-redirect {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
 }
 
-.Login .buttons:not(:last-child) {
-    margin-bottom: 0;
+.register-redirect a {
+  margin-left: 4px;
 }
 
-.Login .registerText {
-    width: 100%;
-    text-align: center;
-    font-size: 12px;
+.register-redirect p:first-child {
+  margin-right: 3px;
 }
 
-.Login .registerText p:first-child {
-    margin-right: 3px;
+.register-redirect p:last-child {
+  color: #623CEA;
+  font-weight: 700;
 }
 
-.Login .registerText p:last-child {
-    color: #623CEA;
-    font-weight: 700;
+.register-redirect p:first-child,
+.register-redirect p:last-child {
+  display: inline-block;
 }
 
-.Login .registerText p:first-child,
-.Login .registerText p:last-child {
-    display: inline-block;
+.register-error {
+  font-size: 12px;
+  font-weight: 300;
+  color: #bb1d2a;
 }
 
-.Login .formError {
-    font-size: 12px;
-    font-weight: 300;
-    color: #bb1d2a;
-}
-
-@media all and (min-width: 480px) {
-  .Login {
-    padding: 30px 0;
-  }
-
-  .Login form {
-    margin: 0 auto;
-    max-width: 320px;
+@media all and (max-width: 760px) {
+  .register-card {
+    min-width: auto;
+    padding: 24px 32px;
   }
 }

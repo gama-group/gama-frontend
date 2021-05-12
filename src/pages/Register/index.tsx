@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Form, Button, Icon } from 'react-bulma-components'
 import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -57,133 +57,146 @@ const Register: React.FC = () => {
     validate,
     validateOnChange: false,
     onSubmit: values => {
+      // eslint-disable-next-line no-alert
       alert(JSON.stringify(values, null, 3))
     },
   })
   return (
-    <div className="Login">
-      <div className="topText">
-        <p>Cadastro</p>
-        <p>Crie sua conta para obter acesso à área privada.</p>
-      </div>
-      <form onSubmit={formik.handleSubmit}>
-        {formik.errors.name ? (
-          <div>
-            <p className="formError">{formik.errors.name}</p>
-          </div>
-        ) : null}
-        <Form.Field>
-          <Form.Control>
-            <Icon align="left">
-              <FontAwesomeIcon icon={faUser} />
-            </Icon>
-            <Form.Input
-              id="name"
-              placeholder="Nome Fantasia"
-              name="name"
-              onChange={formik.handleChange}
-              value={formik.values.name}
-            />
-          </Form.Control>
-        </Form.Field>
-        {formik.errors.socialRation ? (
-          <div>
-            <p className="formError">{formik.errors.socialRation}</p>
-          </div>
-        ) : null}
-        <Form.Field>
-          <Form.Control>
-            <Icon align="left">
-              <FontAwesomeIcon icon={faBuilding} />
-            </Icon>
-            <Form.Input
-              id="socialRation"
-              placeholder="Razão Social"
-              name="socialRation"
-              onChange={formik.handleChange}
-              value={formik.values.socialRation}
-            />
-          </Form.Control>
-        </Form.Field>
-        {formik.errors.cnpj ? (
-          <div>
-            <p className="formError">{formik.errors.cnpj}</p>
-          </div>
-        ) : null}
-        <Form.Field>
-          <Form.Control>
-            <Icon align="left">
-              <FontAwesomeIcon icon={faKey} />
-            </Icon>
-            <Form.Input
-              id="cnpj"
-              placeholder="CNPJ"
-              name="cnpj"
-              onChange={formik.handleChange}
-              value={formik.values.cnpj}
-            />
-          </Form.Control>
-        </Form.Field>
-        {formik.errors.email ? (
-          <div>
-            <p className="formError">{formik.errors.email}</p>
-          </div>
-        ) : null}
-        <Form.Field>
-          <Form.Control>
-            <Icon align="left">
-              <FontAwesomeIcon icon={faEnvelope} />
-            </Icon>
-            <Form.Input
-              id="email"
-              placeholder="E-mail"
-              name="email"
-              onChange={formik.handleChange}
-              value={formik.values.email}
-            />
-          </Form.Control>
-        </Form.Field>
-        {formik.errors.password ? (
-          <div>
-            <p className="formError">{formik.errors.password}</p>
-          </div>
-        ) : null}
-        <Form.Field>
-          <Form.Control>
-            <Icon align="left">
-              <FontAwesomeIcon icon={faLock} />
-            </Icon>
-            <Form.Input
-              placeholder="Senha"
-              id="password"
-              name="password"
-              type="password"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-            />
-          </Form.Control>
-        </Form.Field>
-        <div className="forgotText">
-          <p>Esqueci minha senha</p>
-        </div>
-        <Button.Group>
+    <div className="register-container">
+      <div className="register-card">
+        <p className="register-title">Cadastro</p>
+        <p className="register-subtitle">
+          Crie sua conta para obter acesso à área privada.
+        </p>
+
+        <form className="register-form" onSubmit={formik.handleSubmit}>
+          {formik.errors.name ? (
+            <div>
+              <p className="register-error">{formik.errors.name}</p>
+            </div>
+          ) : null}
+          <Form.Field>
+            <Form.Control>
+              <Icon align="left" className="register-icon">
+                <FontAwesomeIcon icon={faUser} />
+              </Icon>
+              <Form.Input
+                placeholder="Nome Fantasia"
+                id="name"
+                name="name"
+                className="register-input"
+                size="medium"
+                onChange={formik.handleChange}
+                value={formik.values.name}
+              />
+            </Form.Control>
+          </Form.Field>
+
+          {formik.errors.socialRation ? (
+            <div>
+              <p className="register-error">{formik.errors.socialRation}</p>
+            </div>
+          ) : null}
+          <Form.Field>
+            <Form.Control>
+              <Icon align="left" className="register-icon">
+                <FontAwesomeIcon icon={faBuilding} />
+              </Icon>
+              <Form.Input
+                placeholder="Razão Social"
+                id="socialRation"
+                name="socialRation"
+                className="register-input"
+                size="medium"
+                onChange={formik.handleChange}
+                value={formik.values.socialRation}
+              />
+            </Form.Control>
+          </Form.Field>
+
+          {formik.errors.cnpj ? (
+            <div>
+              <p className="register-error">{formik.errors.cnpj}</p>
+            </div>
+          ) : null}
+          <Form.Field>
+            <Form.Control>
+              <Icon align="left" className="register-icon">
+                <FontAwesomeIcon icon={faKey} />
+              </Icon>
+              <Form.Input
+                placeholder="CNPJ"
+                id="cnpj"
+                name="cnpj"
+                className="register-input"
+                size="medium"
+                onChange={formik.handleChange}
+                value={formik.values.cnpj}
+              />
+            </Form.Control>
+          </Form.Field>
+
+          {formik.errors.email ? (
+            <div>
+              <p className="register-error">{formik.errors.email}</p>
+            </div>
+          ) : null}
+          <Form.Field>
+            <Form.Control>
+              <Icon align="left" className="register-icon">
+                <FontAwesomeIcon icon={faEnvelope} />
+              </Icon>
+              <Form.Input
+                placeholder="E-mail"
+                id="email"
+                name="email"
+                className="register-input"
+                size="medium"
+                onChange={formik.handleChange}
+                value={formik.values.email}
+              />
+            </Form.Control>
+          </Form.Field>
+
+          {formik.errors.password ? (
+            <div>
+              <p className="register-error">{formik.errors.password}</p>
+            </div>
+          ) : null}
+          <Form.Field>
+            <Form.Control>
+              <Icon align="left" className="register-icon">
+                <FontAwesomeIcon icon={faLock} />
+              </Icon>
+              <Form.Input
+                placeholder="Senha"
+                id="password"
+                name="password"
+                type="password"
+                className="register-input"
+                size="medium"
+                onChange={formik.handleChange}
+                value={formik.values.password}
+              />
+            </Form.Control>
+          </Form.Field>
+
           <Button
-            fullwidth
-            rounded
-            color="primary"
-            className="signButton"
-            onClick={validate}
             type="submit"
+            className="register-button"
+            onClick={validate}
+            fullwidth
           >
-            Entrar
+            Cadastrar
           </Button>
-        </Button.Group>
-      </form>
-      <div className="registerText">
-        <p>Já possui uma conta? </p>
-        <a href="./login">
-          <p>Faça Login</p>
-        </a>
+        </form>
+
+        <div className="register-redirect">
+          <p>Já possui uma conta? </p>
+          <a href="./login">
+            <p>Faça login</p>
+          </a>
+        </div>
       </div>
     </div>
   )

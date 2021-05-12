@@ -4,7 +4,7 @@ import Header from './Header'
 import SelectionProcessCard from './SelectionProcessCard'
 
 const Home: React.FC = () => {
-  const [selectionProcess, setSelectionProcess] = useState([
+  const [selectionProcess] = useState([
     {
       id: '0',
       deadline: '24/04/2021',

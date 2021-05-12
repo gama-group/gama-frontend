@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand:wght@300&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -10,4 +13,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: #E5E5E5;
+  height: 100vh;
 }

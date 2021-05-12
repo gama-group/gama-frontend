@@ -4,14 +4,14 @@
 
   display: flex;
   flex-direction: row;
-  justify-content: space-between;    
+  justify-content: space-between;
   align-items: center;
   padding: 8px 64px 8px;
   height: 108px;
 }
 
 .header-title {
-  font-family: 'Quicksand' sans-serif;
+  font-family: Quicksand;
   font-style: normal;
   font-weight: bold;
   font-size: 40px;
@@ -47,16 +47,23 @@
   background-color: #623CEA;
   padding: 8px 24px 8px;
   border-radius: 4px;
-  
+
   color: white;
-  font-family: 'Nunito' sans-serif;
+  font-family: Nunito;
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
 }
 
+.header-button:hover,
+.header-button:active,
+.header-button:focus {
+  color: white;
+  background-color: #5432cf;
+}
+
 .title-card {
-  font-family: 'Quicksand' sans-serif;
+  font-family: Quicksand;
   font-size: 24px;
   font-weight: bold;
 }
@@ -66,7 +73,7 @@
 }
 
 .gray-text {
-  font-family: 'Nunito' sans-serif;
+  font-family: Nunito;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;

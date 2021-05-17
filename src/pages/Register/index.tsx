@@ -12,22 +12,24 @@ import {
 
 import './styles.css'
 
+import api from '../../api.js'
+
 const validate = values => {
   interface tsTrash {
     [key: string]: string
   }
   const errors: tsTrash = {}
 
-  if (values.name === '') {
-    errors.name = 'Nome inválido'
+  if (values.trade_name === '') {
+    errors.trade_name = 'Nome inválido'
   }
 
-  if (values.socialRation === '') {
-    errors.socialRation = 'Razão social inválida'
+  if (values.company_name === '') {
+    errors.company_name = 'Razão social inválida'
   }
 
   if (!/^[0-9]{14}$/i.test(values.cnpj)) {
-    errors.cnpj = 'CNPJ inválido'
+    errors.cnpj = 'CNPJ inválido, são necessários 14 digitos'
   }
   if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'E-mail inválido'
@@ -48,8 +50,8 @@ const validate = values => {
 const Register: React.FC = () => {
   const formik = useFormik({
     initialValues: {
-      name: '',
-      socialRation: '',
+      trade_name: '',
+      company_name: '',
       cnpj: '',
       email: '',
       password: '',
@@ -58,7 +60,8 @@ const Register: React.FC = () => {
     validateOnChange: false,
     onSubmit: values => {
       // eslint-disable-next-line no-alert
-      alert(JSON.stringify(values, null, 3))
+      api.post('adciona', values)
+      // alert(JSON.stringify(values, null, 3))
     },
   })
   return (
@@ -70,9 +73,9 @@ const Register: React.FC = () => {
         </p>
 
         <form className="register-form" onSubmit={formik.handleSubmit}>
-          {formik.errors.name ? (
+          {formik.errors.trade_name ? (
             <div>
-              <p className="register-error">{formik.errors.name}</p>
+              <p className="register-error">{formik.errors.trade_name}</p>
             </div>
           ) : null}
           <Form.Field>
@@ -82,19 +85,19 @@ const Register: React.FC = () => {
               </Icon>
               <Form.Input
                 placeholder="Nome Fantasia"
-                id="name"
-                name="name"
+                id="trade_name"
+                name="trade_name"
                 className="register-input"
                 size="medium"
                 onChange={formik.handleChange}
-                value={formik.values.name}
+                value={formik.values.trade_name}
               />
             </Form.Control>
           </Form.Field>
 
-          {formik.errors.socialRation ? (
+          {formik.errors.company_name ? (
             <div>
-              <p className="register-error">{formik.errors.socialRation}</p>
+              <p className="register-error">{formik.errors.company_name}</p>
             </div>
           ) : null}
           <Form.Field>
@@ -104,12 +107,12 @@ const Register: React.FC = () => {
               </Icon>
               <Form.Input
                 placeholder="Razão Social"
-                id="socialRation"
-                name="socialRation"
+                id="company_name"
+                name="company_name"
                 className="register-input"
                 size="medium"
                 onChange={formik.handleChange}
-                value={formik.values.socialRation}
+                value={formik.values.company_name}
               />
             </Form.Control>
           </Form.Field>

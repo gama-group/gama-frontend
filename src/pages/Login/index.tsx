@@ -4,6 +4,8 @@ import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 
+import api from '../../api.js'
+
 import './styles.css'
 
 const validate = values => {
@@ -35,7 +37,8 @@ const Login: React.FC = () => {
     validateOnChange: false,
     onSubmit: values => {
       // eslint-disable-next-line no-alert
-      alert(JSON.stringify(values, null, 2))
+      // nao existe rota login no backend ainda
+      api.post('login', values)
     },
   })
 

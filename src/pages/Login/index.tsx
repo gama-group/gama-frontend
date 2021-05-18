@@ -4,7 +4,7 @@ import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 
-import api from '../../api.js'
+import api from '../../api'
 
 import './styles.css'
 

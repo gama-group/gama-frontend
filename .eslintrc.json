@@ -31,6 +31,7 @@
     "react/jsx-one-expression-per-line": "off",
     "react/prop-types": "off",
     "no-use-before-define": "off",
+    "no-shadow": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-filename-extension": [

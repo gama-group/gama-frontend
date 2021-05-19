@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useState } from 'react'
+import React, { createContext, useCallback, useState, useMemo } from 'react'
 
 import api from '../../api'
 import { AuthContextData, AuthState } from './types'
@@ -9,9 +9,7 @@ const AUTH_TOKEN_KEY = '@gama/token'
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [token, setToken] = useState<string>()
-  const [isAuthenticated, setAuthenticated] = useState<AuthState>(
-    AuthState.IDLE,
-  )
+  const [authState, setAuthState] = useState<AuthState>(AuthState.IDLE)
 
   const login = useCallback(async (email: string, password: string) => {
     const response = await api.post('login', { email, password })
@@ -19,7 +17,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     const token = response.data.token as string
     localStorage.setItem(AUTH_TOKEN_KEY, token)
 
-    setAuthenticated(AuthState.AUTHENTICATED)
+    setAuthState(AuthState.AUTHENTICATED)
   }, [])
 
   const register = useCallback(
@@ -51,13 +49,18 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     if (token === null) {
       setToken(undefined)
-      setAuthenticated(AuthState.UNAUTHENTICATED)
+      setAuthState(AuthState.UNAUTHENTICATED)
       return
     }
 
     setToken(token)
-    setAuthenticated(AuthState.AUTHENTICATED)
+    setAuthState(AuthState.AUTHENTICATED)
   }, [])
+
+  const isAuthenticated = useMemo(
+    () => authState === AuthState.AUTHENTICATED,
+    [authState],
+  )
 
   return (
     <AuthContext.Provider

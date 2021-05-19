@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
 
 import Home from './pages/Home'
@@ -13,7 +13,10 @@ import useAuth from './hooks/useAuth'
 const Routes: React.FC = () => {
   const { loadToken } = useAuth()
 
-  loadToken()
+  useEffect(() => {
+    loadToken()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Router>

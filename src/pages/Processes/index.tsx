@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Form, Button, Icon } from 'react-bulma-components'
 import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
 import './styles.css'
 
@@ -14,13 +14,13 @@ const validate = values => {
   if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'E-mail inválido'
   }
-  if (values.title && values.title !== undefined) {
+  if (values.title === undefined || values.title.length < 1) {
     errors.title = 'Título inválido'
   }
-  if (values.description && values.description !== undefined) {
+  if (values.description === undefined || values.description.length < 1) {
     errors.description = 'Descrição inválida'
   }
-  if (values.deadline && values.deadline !== undefined) {
+  if (values.deadline === undefined || values.deadline.length < 1) {
     errors.deadline = 'Prazo inválido'
   }
 
@@ -52,12 +52,12 @@ const Processes: React.FC = () => {
           necessárias.
         </p>
         <form className="processes-form" onSubmit={formik.handleSubmit}>
-          {formik.errors.title ? (
-            <div>
-              <p className="processes-error">{formik.errors.title}</p>
-            </div>
-          ) : null}
           <Form.Field>
+            {formik.errors.title ? (
+              <div className="processes-error">
+                <p>{formik.errors.title}</p>
+              </div>
+            ) : null}
             <Form.Control>
               <Icon align="left" className="processes-icon">
                 <div className="title-icon">
@@ -87,12 +87,12 @@ const Processes: React.FC = () => {
             </Form.Control>
           </Form.Field>
 
-          {formik.errors.deadline ? (
-            <div>
-              <p className="processes-error">{formik.errors.email}</p>
-            </div>
-          ) : null}
           <Form.Field className="w50 margin">
+            {formik.errors.deadline ? (
+              <div className="processes-error">
+                <p>{formik.errors.email}</p>
+              </div>
+            ) : null}
             <Form.Control fullwidth>
               <Icon align="left" className="login-icon">
                 <FontAwesomeIcon icon={faEnvelope} />
@@ -109,12 +109,12 @@ const Processes: React.FC = () => {
             </Form.Control>
           </Form.Field>
 
-          {formik.errors.deadline ? (
-            <div>
-              <p className="processes-error">{formik.errors.deadline}</p>
-            </div>
-          ) : null}
           <Form.Field className="w50">
+            {formik.errors.deadline ? (
+              <div className="processes-error">
+                <p>{formik.errors.deadline}</p>
+              </div>
+            ) : null}
             <Form.Control fullwidth>
               <Form.Input
                 placeholder="Prazo"
@@ -129,12 +129,12 @@ const Processes: React.FC = () => {
             </Form.Control>
           </Form.Field>
 
-          {formik.errors.description ? (
-            <div>
-              <p className="processes-error">{formik.errors.description}</p>
-            </div>
-          ) : null}
           <Form.Field>
+            {formik.errors.description ? (
+              <div className="processes-error">
+                <p>{formik.errors.description}</p>
+              </div>
+            ) : null}
             <Form.Control fullwidth>
               <Icon align="left" className="processes-icon">
                 <div className="title-icon">

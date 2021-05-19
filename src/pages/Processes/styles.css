@@ -111,6 +111,9 @@ p {
 .processes-error {
   font-size: 12px;
   font-weight: 300;
+}
+
+.processes-error p {
   color: #bb1d2a;
 }
 

@@ -7,7 +7,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 const AUTH_TOKEN_KEY = '@gama/token'
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider: React.FC = ({ children }) => {
   const [token, setToken] = useState<string>()
   const [isAuthenticated, setAuthenticated] = useState<AuthState>(
     AuthState.IDLE,
@@ -21,6 +21,30 @@ export const AuthProvider = ({ children }) => {
 
     setAuthenticated(AuthState.AUTHENTICATED)
   }, [])
+
+  const register = useCallback(
+    async (
+      tradeName: string,
+      companyName: string,
+      cnpj: string,
+      email: string,
+      password: string,
+    ) => {
+      const response = await api.post('adiciona', {
+        trade_name: tradeName,
+        company_name: companyName,
+        cnpj,
+        email,
+        password,
+      })
+
+      const token = response.data.authorization as string
+      localStorage.setItem(AUTH_TOKEN_KEY, token)
+
+      setAuthenticated(AuthState.AUTHENTICATED)
+    },
+    [],
+  )
 
   const loadToken = useCallback(async () => {
     const token = localStorage.getItem(AUTH_TOKEN_KEY)
@@ -36,7 +60,9 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, token, login, loadToken }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, token, login, register, loadToken }}
+    >
       {children}
     </AuthContext.Provider>
   )

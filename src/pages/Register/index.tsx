@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { Form, Button, Icon } from 'react-bulma-components'
 import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,9 +11,17 @@ import {
   faKey,
 } from '@fortawesome/free-solid-svg-icons'
 
+import useAuth from '../../hooks/useAuth'
+
 import './styles.css'
 
-import api from '../../api'
+interface RegisterFormData {
+  tradeName: string
+  companyName: string
+  cnpj: string
+  email: string
+  password: string
+}
 
 const validate = values => {
   interface tsTrash {
@@ -48,22 +57,38 @@ const validate = values => {
 }
 
 const Register: React.FC = () => {
+  const history = useHistory()
   const formik = useFormik({
     initialValues: {
-      trade_name: '',
-      company_name: '',
+      tradeName: '',
+      companyName: '',
       cnpj: '',
       email: '',
       password: '',
     },
     validate,
     validateOnChange: false,
-    onSubmit: values => {
-      // eslint-disable-next-line no-alert
-      api.post('adciona', values)
-      // alert(JSON.stringify(values, null, 3))
-    },
+    onSubmit: handleSubmit,
   })
+
+  const { register } = useAuth()
+
+  async function handleSubmit({
+    tradeName,
+    companyName,
+    cnpj,
+    email,
+    password,
+  }: RegisterFormData) {
+    try {
+      await register(tradeName, companyName, cnpj, email, password)
+
+      history.push('/')
+    } finally {
+      formik.setSubmitting(false)
+    }
+  }
+
   return (
     <div className="register-container">
       <div className="register-card">
@@ -73,9 +98,9 @@ const Register: React.FC = () => {
         </p>
 
         <form className="register-form" onSubmit={formik.handleSubmit}>
-          {formik.errors.trade_name ? (
+          {formik.errors.tradeName ? (
             <div>
-              <p className="register-error">{formik.errors.trade_name}</p>
+              <p className="register-error">{formik.errors.tradeName}</p>
             </div>
           ) : null}
           <Form.Field>
@@ -90,14 +115,14 @@ const Register: React.FC = () => {
                 className="register-input"
                 size="medium"
                 onChange={formik.handleChange}
-                value={formik.values.trade_name}
+                value={formik.values.tradeName}
               />
             </Form.Control>
           </Form.Field>
 
-          {formik.errors.company_name ? (
+          {formik.errors.companyName ? (
             <div>
-              <p className="register-error">{formik.errors.company_name}</p>
+              <p className="register-error">{formik.errors.companyName}</p>
             </div>
           ) : null}
           <Form.Field>
@@ -112,7 +137,7 @@ const Register: React.FC = () => {
                 className="register-input"
                 size="medium"
                 onChange={formik.handleChange}
-                value={formik.values.company_name}
+                value={formik.values.companyName}
               />
             </Form.Control>
           </Form.Field>
@@ -187,7 +212,7 @@ const Register: React.FC = () => {
           <Button
             type="submit"
             className="register-button"
-            onClick={validate}
+            loading={formik.isSubmitting}
             fullwidth
           >
             Cadastrar

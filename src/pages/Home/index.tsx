@@ -1,38 +1,54 @@
-import React, { useState } from 'react'
+/* eslint-disable camelcase */
+import React, { useState, useEffect } from 'react'
 
 import Header from './Header'
 import SelectionProcessCard from './SelectionProcessCard'
 
+import api from '../../api'
+
+interface SelectiveProcess {
+  id: number
+  method_of_contact: string
+  title: string
+  deadline: string
+  contact: string
+  description: string
+}
+
 const Home: React.FC = () => {
-  const [selectionProcess] = useState([
-    {
-      id: '0',
-      deadline: '24/04/2021',
-      contact: 'seuemail@email.com.br',
-      description:
-        'Lorem Ipsum is simply dummy text of the printing and typesettin industry. Lorem Ipsum has been the industry standard dummy text ever   of Lorem Ipsum.',
-    },
-    {
-      id: '1',
-      deadline: '24/04/2021',
-      contact: 'seuemail@email.com.br',
-      description:
-        'Lorem Ipsum is simply dummy text of the printing and typesettin industry. Lorem Ipsum has been the industry standard dummy text ever   of Lorem Ipsum.',
-    },
-  ])
+  const [selectiveProcesses, setSelectiveProcesses] = useState<
+    SelectiveProcess[]
+  >([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      api.get('findAllProcess').then(response => {
+        setSelectiveProcesses(Object.values(response.data))
+      })
+    }
+
+    fetchData()
+  }, [])
 
   return (
     <div>
       <Header />
       <div className="list-selection-process">
-        {selectionProcess.map(item => (
-          <SelectionProcessCard
-            key={item.id}
-            deadline={item.deadline}
-            contact={item.contact}
-            description={item.description}
-          />
-        ))}
+        {selectiveProcesses.length !== 0 ? (
+          selectiveProcesses.map(item => (
+            <SelectionProcessCard
+              key={item.id}
+              title={item.title}
+              deadline={item.deadline}
+              contact={item.method_of_contact}
+              description={item.description}
+            />
+          ))
+        ) : (
+          <div className="not-found title">
+            Não há processos seletivos abertos
+          </div>
+        )}
       </div>
     </div>
   )

@@ -8,5 +8,12 @@ export interface AuthContextData {
   isAuthenticated: boolean
   token?: string
   login: (email: string, password: string) => Promise<void>
+  register: (
+    tradeName: string,
+    companyName: string,
+    cnpj: string,
+    email: string,
+    password: string,
+  ) => Promise<void>
   loadToken: () => Promise<void>
 }

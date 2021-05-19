@@ -1,18 +1,22 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { Form, Button, Icon } from 'react-bulma-components'
 import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 
-import api from '../../api'
+import useAuth from '../../hooks/useAuth'
 
 import './styles.css'
 
+interface LoginFormData {
+  email: string
+  password: string
+}
+
 const validate = values => {
-  interface tsTrash {
-    [key: string]: string
-  }
-  const errors: tsTrash = {}
+  const errors: Record<string, string> = {}
+
   if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address'
   }
@@ -28,6 +32,7 @@ const validate = values => {
 }
 
 const Login: React.FC = () => {
+  const history = useHistory()
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -35,12 +40,20 @@ const Login: React.FC = () => {
     },
     validate,
     validateOnChange: false,
-    onSubmit: values => {
-      // eslint-disable-next-line no-alert
-      // nao existe rota login no backend ainda
-      api.post('login', values)
-    },
+    onSubmit: handleSubmit,
   })
+
+  const { login } = useAuth()
+
+  async function handleSubmit({ email, password }: LoginFormData) {
+    try {
+      await login(email, password)
+
+      history.push('/')
+    } finally {
+      formik.setSubmitting(false)
+    }
+  }
 
   return (
     <div className="login-container">
@@ -102,7 +115,7 @@ const Login: React.FC = () => {
           <Button
             type="submit"
             className="login-button"
-            onClick={validate}
+            loading={formik.isSubmitting}
             fullwidth
           >
             Entrar

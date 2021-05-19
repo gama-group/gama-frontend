@@ -29,12 +29,12 @@ const validate = values => {
   }
   const errors: tsTrash = {}
 
-  if (values.trade_name === '') {
-    errors.trade_name = 'Nome inválido'
+  if (values.tradeName === '') {
+    errors.tradeName = 'Nome inválido'
   }
 
-  if (values.company_name === '') {
-    errors.company_name = 'Razão social inválida'
+  if (values.companyName === '') {
+    errors.companyName = 'Razão social inválida'
   }
 
   if (!/^[0-9]{14}$/i.test(values.cnpj)) {
@@ -110,8 +110,8 @@ const Register: React.FC = () => {
               </Icon>
               <Form.Input
                 placeholder="Nome Fantasia"
-                id="trade_name"
-                name="trade_name"
+                id="tradeName"
+                name="tradeName"
                 className="register-input"
                 size="medium"
                 onChange={formik.handleChange}
@@ -132,8 +132,8 @@ const Register: React.FC = () => {
               </Icon>
               <Form.Input
                 placeholder="Razão Social"
-                id="company_name"
-                name="company_name"
+                id="companyName"
+                name="companyName"
                 className="register-input"
                 size="medium"
                 onChange={formik.handleChange}

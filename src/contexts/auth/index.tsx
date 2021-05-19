@@ -39,7 +39,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       const token = response.data.authorization as string
       localStorage.setItem(AUTH_TOKEN_KEY, token)
 
-      setAuthenticated(AuthState.AUTHENTICATED)
+      setAuthState(AuthState.AUTHENTICATED)
     },
     [],
   )

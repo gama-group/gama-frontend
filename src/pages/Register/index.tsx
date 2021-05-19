@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Form, Button, Icon } from 'react-bulma-components'
@@ -16,8 +17,8 @@ import useAuth from '../../hooks/useAuth'
 import './styles.css'
 
 interface RegisterFormData {
-  tradeName: string
-  companyName: string
+  trade_name: string
+  company_name: string
   cnpj: string
   email: string
   password: string
@@ -29,12 +30,12 @@ const validate = values => {
   }
   const errors: tsTrash = {}
 
-  if (values.tradeName === '') {
-    errors.tradeName = 'Nome inválido'
+  if (values.trade_name === '') {
+    errors.trade_name = 'Nome inválido'
   }
 
-  if (values.companyName === '') {
-    errors.companyName = 'Razão social inválida'
+  if (values.company_name === '') {
+    errors.company_name = 'Razão social inválida'
   }
 
   if (!/^[0-9]{14}$/i.test(values.cnpj)) {
@@ -60,8 +61,8 @@ const Register: React.FC = () => {
   const history = useHistory()
   const formik = useFormik({
     initialValues: {
-      tradeName: '',
-      companyName: '',
+      trade_name: '',
+      company_name: '',
       cnpj: '',
       email: '',
       password: '',
@@ -74,14 +75,14 @@ const Register: React.FC = () => {
   const { register } = useAuth()
 
   async function handleSubmit({
-    tradeName,
-    companyName,
+    trade_name,
+    company_name,
     cnpj,
     email,
     password,
   }: RegisterFormData) {
     try {
-      await register(tradeName, companyName, cnpj, email, password)
+      await register(trade_name, company_name, cnpj, email, password)
 
       history.push('/')
     } finally {
@@ -98,9 +99,9 @@ const Register: React.FC = () => {
         </p>
 
         <form className="register-form" onSubmit={formik.handleSubmit}>
-          {formik.errors.tradeName ? (
+          {formik.errors.trade_name ? (
             <div>
-              <p className="register-error">{formik.errors.tradeName}</p>
+              <p className="register-error">{formik.errors.trade_name}</p>
             </div>
           ) : null}
           <Form.Field>
@@ -110,19 +111,19 @@ const Register: React.FC = () => {
               </Icon>
               <Form.Input
                 placeholder="Nome Fantasia"
-                id="tradeName"
-                name="tradeName"
+                id="trade_name"
+                name="trade_name"
                 className="register-input"
                 size="medium"
                 onChange={formik.handleChange}
-                value={formik.values.tradeName}
+                value={formik.values.trade_name}
               />
             </Form.Control>
           </Form.Field>
 
-          {formik.errors.companyName ? (
+          {formik.errors.company_name ? (
             <div>
-              <p className="register-error">{formik.errors.companyName}</p>
+              <p className="register-error">{formik.errors.company_name}</p>
             </div>
           ) : null}
           <Form.Field>
@@ -132,12 +133,12 @@ const Register: React.FC = () => {
               </Icon>
               <Form.Input
                 placeholder="Razão Social"
-                id="companyName"
-                name="companyName"
+                id="company_name"
+                name="company_name"
                 className="register-input"
                 size="medium"
                 onChange={formik.handleChange}
-                value={formik.values.companyName}
+                value={formik.values.company_name}
               />
             </Form.Control>
           </Form.Field>

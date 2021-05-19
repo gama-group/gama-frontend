@@ -1,10 +1,11 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react'
 
-import Header from './Header'
 import SelectionProcessCard from './SelectionProcessCard'
 
 import api from '../../api'
+
+import './styles.css'
 
 interface SelectiveProcess {
   id: number
@@ -31,25 +32,22 @@ const Home: React.FC = () => {
   }, [])
 
   return (
-    <div>
-      <Header />
-      <div className="list-selection-process">
-        {selectiveProcesses.length !== 0 ? (
-          selectiveProcesses.map(item => (
-            <SelectionProcessCard
-              key={item.id}
-              title={item.title}
-              deadline={item.deadline}
-              contact={item.method_of_contact}
-              description={item.description}
-            />
-          ))
-        ) : (
-          <div className="not-found title">
-            Não há processos seletivos abertos
-          </div>
-        )}
-      </div>
+    <div className="list-selection-process">
+      {selectiveProcesses.length !== 0 ? (
+        selectiveProcesses.map(item => (
+          <SelectionProcessCard
+            key={item.id}
+            title={item.title}
+            deadline={item.deadline}
+            contact={item.method_of_contact}
+            description={item.description}
+          />
+        ))
+      ) : (
+        <div className="not-found title">
+          Não há processos seletivos abertos
+        </div>
+      )}
     </div>
   )
 }

@@ -9,11 +9,7 @@ import useAuth from '../../hooks/useAuth'
 import './styles.css'
 
 const Header: React.FC = () => {
-  const auth = useAuth()
-
-  const logout = () => {
-    console.log('do logout')
-  }
+  const { isAuthenticated, logout } = useAuth()
 
   return (
     <div className="header px-6">
@@ -21,9 +17,9 @@ const Header: React.FC = () => {
         <Link to="/" className="header-title">
           Gama
         </Link>
-        {auth.isAuthenticated && (
+        {isAuthenticated && (
           <NavLink
-            to="/process"
+            to="/processes"
             className="header-title ml-6 is-size-5  link-header"
             activeClassName="link-selected"
           >
@@ -32,7 +28,7 @@ const Header: React.FC = () => {
         )}
       </div>
 
-      {auth.isAuthenticated ? (
+      {isAuthenticated ? (
         <div>
           <div className="profile-logout">
             <Icon>

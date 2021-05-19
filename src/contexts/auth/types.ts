@@ -15,5 +15,6 @@ export interface AuthContextData {
     email: string,
     password: string,
   ) => Promise<void>
-  loadToken: () => Promise<void>
+  logout: () => Promise<void>
+  loadToken: () => void
 }

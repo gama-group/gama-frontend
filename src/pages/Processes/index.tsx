@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Form, Button, Icon } from 'react-bulma-components'
 import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
 import './styles.css'
 
@@ -167,6 +167,7 @@ const Processes: React.FC = () => {
           <Button
             type="submit"
             className="processes-button"
+            size="medium"
             onClick={validate}
             fullwidth
           >

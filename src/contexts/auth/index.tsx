@@ -39,12 +39,20 @@ export const AuthProvider: React.FC = ({ children }) => {
       const token = response.data.authorization as string
       localStorage.setItem(AUTH_TOKEN_KEY, token)
 
+      setToken(token)
       setAuthState(AuthState.AUTHENTICATED)
     },
     [],
   )
 
-  const loadToken = useCallback(async () => {
+  const logout = useCallback(async () => {
+    localStorage.removeItem(AUTH_TOKEN_KEY)
+
+    setToken(undefined)
+    setAuthState(AuthState.UNAUTHENTICATED)
+  }, [])
+
+  const loadToken = useCallback(() => {
     const token = localStorage.getItem(AUTH_TOKEN_KEY)
 
     if (token === null) {
@@ -64,7 +72,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, token, login, register, loadToken }}
+      value={{ isAuthenticated, token, login, register, logout, loadToken }}
     >
       {children}
     </AuthContext.Provider>

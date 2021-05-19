@@ -12,7 +12,7 @@ import {
 
 import './styles.css'
 
-import api from '../../api.js'
+import api from '../../api'
 
 const validate = values => {
   interface tsTrash {

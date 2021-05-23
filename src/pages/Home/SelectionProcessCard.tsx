@@ -13,12 +13,21 @@ const SelectionProcessCard: React.FC<Props> = ({
   contact,
   description,
 }) => {
+  const isDeadlineOver = Date.parse(deadline) < Date.now()
+
   return (
-    <div className="card selection-process-card">
+    <div
+      className={`card selection-process-card ${
+        isDeadlineOver ? 'selection-process-finished' : ''
+      }`}
+    >
       <div className="header-card">
         <h6 className="title">{title}</h6>
         <div className="gray-text deadline-text">
-          Término das inscrições: {deadline}
+          {isDeadlineOver
+            ? 'Inscrições encerradas: '
+            : 'Término das inscrições: '}
+          {deadline}
         </div>
       </div>
       <div className="description-card">{description}</div>

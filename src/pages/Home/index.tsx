@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react'
 
@@ -12,7 +13,6 @@ interface SelectiveProcess {
   method_of_contact: string
   title: string
   deadline: string
-  contact: string
   description: string
 }
 
@@ -24,12 +24,23 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       api.get('findAllProcess').then(response => {
-        setSelectiveProcesses(Object.values(response.data))
+        setSelectiveProcesses(
+          Object.values<SelectiveProcess>(response.data).sort(
+            compareSelectiveProcesses,
+          ),
+        )
       })
     }
 
     fetchData()
   }, [])
+
+  const compareSelectiveProcesses = (a, b) => {
+    const dateA = Date.parse(a.deadline)
+    const dateB = Date.parse(b.deadline)
+
+    return dateA < dateB ? 1 : dateA > dateB ? -1 : 0
+  }
 
   return (
     <div className="list-selection-process">

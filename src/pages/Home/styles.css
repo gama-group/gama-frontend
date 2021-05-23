@@ -60,6 +60,10 @@
   margin-bottom: 24px;
 }
 
+.selection-process-finished {
+  background-color: #ebebeb;
+}
+
 .header-card {
   display: flex;
   flex-direction: row;

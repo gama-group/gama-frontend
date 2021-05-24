@@ -11,6 +11,7 @@ import {
   faBuilding,
   faKey,
 } from '@fortawesome/free-solid-svg-icons'
+import { toast } from 'react-toastify'
 
 import useAuth from '../../hooks/useAuth'
 
@@ -85,9 +86,16 @@ const Register: React.FC = () => {
       await register(trade_name, company_name, cnpj, email, password)
 
       history.push('/')
+    } catch {
+      toast.error('Usuário já cadastrado')
     } finally {
       formik.setSubmitting(false)
     }
+  }
+
+  const limitCnpj = e => {
+    const input = `${e.target.defaultValue}`
+    if (input.length < 14) formik.handleChange(e)
   }
 
   return (
@@ -157,9 +165,10 @@ const Register: React.FC = () => {
                 placeholder="CNPJ"
                 id="cnpj"
                 name="cnpj"
+                max="14"
                 className="register-input"
                 size="medium"
-                onChange={formik.handleChange}
+                onChange={limitCnpj}
                 value={formik.values.cnpj}
               />
             </Form.Control>

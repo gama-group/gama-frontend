@@ -4,6 +4,7 @@ import { Form, Button, Icon } from 'react-bulma-components'
 import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
+import { toast } from 'react-toastify'
 
 import useAuth from '../../hooks/useAuth'
 
@@ -50,6 +51,8 @@ const Login: React.FC = () => {
       await login(email, password)
 
       history.push('/')
+    } catch {
+      toast.error('Usuário ou senha errados')
     } finally {
       formik.setSubmitting(false)
     }

@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Processes from './pages/Processes'
 import EditProcesses from './pages/EditProcesses'
+import Profile from './pages/Profile'
 
 import { PublicRoute, ProtectedRoute, PrivateRoute } from './components/Routes'
 
@@ -25,6 +26,7 @@ const Routes: React.FC = () => {
         <PublicRoute path="/" exact component={Home} />
         <ProtectedRoute path="/login" component={Login} />
         <ProtectedRoute path="/register" component={Register} />
+        <ProtectedRoute path="/profile" component={Profile} />
         <PrivateRoute path="/processes" component={Processes} />
         <PrivateRoute path="/processes-edit" component={EditProcesses} />
       </Switch>

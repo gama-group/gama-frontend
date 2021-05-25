@@ -65,16 +65,12 @@ const EditProcess: React.FC = () => {
     email,
   }: EditProcessFormData) {
     try {
-      await api.post(
-        '/processo-seletivo',
-        {
-          title,
-          description,
-          deadline,
-          method_of_contact: email,
-        },
-        { params: { id: selectiveProcessId } },
-      )
+      await api.put(`/processo-seletivo/${selectiveProcessId}`, {
+        title,
+        description,
+        deadline,
+        method_of_contact: email,
+      })
     } finally {
       formik.setSubmitting(false)
     }

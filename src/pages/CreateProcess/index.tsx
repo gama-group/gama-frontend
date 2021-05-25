@@ -27,7 +27,7 @@ const validate = values => {
   return errors
 }
 
-const Processes: React.FC = () => {
+const CreateProcess: React.FC = () => {
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -167,8 +167,7 @@ const Processes: React.FC = () => {
           <Button
             type="submit"
             className="processes-button"
-            size="medium"
-            onClick={validate}
+            loading={formik.isSubmitting}
             fullwidth
           >
             Adicionar
@@ -179,4 +178,4 @@ const Processes: React.FC = () => {
   )
 }
 
-export default Processes
+export default CreateProcess

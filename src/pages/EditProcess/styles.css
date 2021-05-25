@@ -1,0 +1,172 @@
+p {
+  font-family: 'Nunito Sans';
+  font-weight: 400;
+  color: #000;
+}
+
+.processes-container {
+  width: 100%;
+  height: inherit;
+  padding: 0 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.remove-button-container {
+  position: relative;
+}
+
+.remove-button {
+  color: #fff;
+  background-color: #F56868;
+}
+
+.modal-remove-title {
+  margin-bottom: 8px;
+  font-family: 'Quicksand';
+  font-weight: 700;
+  font-size: 24px;
+  color: #000;
+  text-align: left;
+}
+
+.modal-remove-content {
+  width: inherit;
+}
+
+.modal-remove-content p {
+  font-size: 16px;
+}
+
+.modal-remove-buttons {
+  justify-content: flex-end
+}
+
+.modal-remove-buttons button {
+  color: #fff;
+  width: 100px;
+  font-size: 14px;
+}
+
+.modal-remove-buttons button:hover,
+.remove-button:hover {
+  color: #fff;
+}
+
+.modal-remove-buttons button:first-child {
+  background-color: #F56868;
+}
+
+.modal-remove-buttons button:last-child {
+  background-color: #D4D4D4;
+}
+
+
+.modal-remove-no {
+
+}
+
+.processes-card {
+  min-width: 550px;
+  padding: 32px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.processes-title {
+  margin-bottom: 8px;
+  font-family: 'Quicksand';
+  font-weight: 700;
+  font-size: 28.8px;
+  color: #000;
+  text-align: left;
+}
+
+.processes-subtitle {
+  font-family: Nunito;
+  font-weight: 300;
+  font-size: 14.4px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.processes-form {
+  width: 100%;
+}
+
+.processes-icon {
+  color: #000 !important;
+  font-size: 20px;
+  margin: 2px 0;
+}
+
+.input-descricao {
+  padding-left: 2.5em;
+}
+
+.processes-input::placeholder {
+  color: #000 !important;
+  font-weight: 600;
+}
+
+.processes-button {
+  width: 200px !important;
+  margin-bottom: 20px;
+  /* height: 40px; */
+  border-radius: 8px;
+  background-color: #623cea;
+  color: white;
+  font-size: 22.4px;
+}
+
+.processes-button:hover {
+  color: white;
+  background-color: #5432cf;
+}
+
+.processes-redirect {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+}
+
+.processes-redirect a {
+  margin-left: 4px;
+}
+
+.processes-redirect p:first-child {
+  margin-right: 3px;
+}
+
+.processes-redirect p:last-child {
+  color: #623cea;
+  font-weight: 700;
+}
+
+.processes-redirect p:first-child,
+.processes-redirect p:last-child {
+  display: inline-block;
+}
+
+.processes-error {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.processes-error p {
+  color: #bb1d2a;
+}
+
+@media all and (max-width: 760px) {
+  .processes-card {
+    min-width: auto;
+    padding: 24px 32px;
+  }
+}

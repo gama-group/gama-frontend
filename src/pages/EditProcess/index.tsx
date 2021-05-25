@@ -1,10 +1,24 @@
-import React from 'react'
-import { Form, Button, Icon } from 'react-bulma-components'
+import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { Form, Button, Icon, Modal } from 'react-bulma-components'
 import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
+import api from '../../api'
+
 import './styles.css'
+
+interface EditProcessParams {
+  id: string
+}
+
+interface EditProcessFormData {
+  title: string
+  description: string
+  deadline: string
+  email: string
+}
 
 const validate = values => {
   interface tsTrash {
@@ -27,7 +41,7 @@ const validate = values => {
   return errors
 }
 
-const Processes: React.FC = () => {
+const EditProcess: React.FC = () => {
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -37,20 +51,84 @@ const Processes: React.FC = () => {
     },
     validate,
     validateOnChange: false,
-    onSubmit: values => {
-      // eslint-disable-next-line no-alert
-      alert(JSON.stringify(values, null, 2))
-    },
+    onSubmit: handleSubmit,
   })
+
+  const { id: selectiveProcessId } = useParams<EditProcessParams>()
+
+  const [modalOpen, setModalOpen] = useState(false)
+
+  async function handleSubmit({
+    title,
+    description,
+    deadline,
+    email,
+  }: EditProcessFormData) {
+    try {
+      await api.post(
+        '/processo-seletivo',
+        {
+          title,
+          description,
+          deadline,
+          method_of_contact: email,
+        },
+        { params: { id: selectiveProcessId } },
+      )
+    } finally {
+      formik.setSubmitting(false)
+    }
+  }
 
   return (
     <div className="processes-container">
       <div className="processes-card">
-        <p className="processes-title">Criar Processo Seletivo</p>
-        <p className="processes-subtitle">
-          Adicione aqui novos processos seletivos, preenchendo as informações
-          necessárias.
-        </p>
+        <div className="card-top">
+          <div>
+            <p className="processes-title">Editar Processo Seletivo</p>
+            <p className="processes-subtitle">
+              Atualize aqui os processos seletivos, preenchendo as informações
+              necessárias.
+            </p>
+          </div>
+          <div className="remove-button-container">
+            <Button
+              className="remove-button"
+              onClick={() => setModalOpen(true)}
+            >
+              Remover
+            </Button>
+          </div>
+        </div>
+
+        <Modal
+          show={modalOpen}
+          onClose={() => setModalOpen(false)}
+          showClose={false}
+        >
+          <Modal.Card>
+            <Modal.Card.Header showClose={false}>
+              <Modal.Card.Title className="modal-remove-title">
+                Remover Processo Seletivo
+              </Modal.Card.Title>
+            </Modal.Card.Header>
+            <Modal.Card.Body>
+              <Modal.Content className="modal-remove-content">
+                <p>
+                  Você tem certeza que deseja remover este processo seletivo?
+                </p>
+              </Modal.Content>
+            </Modal.Card.Body>
+            <Modal.Card.Footer className="modal-remove-buttons">
+              {/* Tentar usar o onClick no Button abaixo para executar a função de chamada da api, mas talvez tenha que
+              criar um Form antes.. */}
+
+              <Button>Sim</Button>
+              <Button onClick={() => setModalOpen(false)}>Não</Button>
+            </Modal.Card.Footer>
+          </Modal.Card>
+        </Modal>
+
         <form className="processes-form" onSubmit={formik.handleSubmit}>
           <Form.Field>
             {formik.errors.title ? (
@@ -167,11 +245,10 @@ const Processes: React.FC = () => {
           <Button
             type="submit"
             className="processes-button"
-            size="medium"
-            onClick={validate}
+            loading={formik.isSubmitting}
             fullwidth
           >
-            Adicionar
+            Salvar
           </Button>
         </form>
       </div>
@@ -179,4 +256,4 @@ const Processes: React.FC = () => {
   )
 }
 
-export default Processes
+export default EditProcess

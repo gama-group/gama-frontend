@@ -1,17 +1,10 @@
-import React, { useState } from 'react'
-import { Form, Button, Icon, Modal } from 'react-bulma-components'
+import React from 'react'
+import { Form, Button, Icon } from 'react-bulma-components'
 import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
 import './styles.css'
-
-interface ProcessesFormData {
-  title: string
-  description: string
-  deadline: string
-  email: string
-}
 
 const validate = values => {
   interface tsTrash {
@@ -34,7 +27,7 @@ const validate = values => {
   return errors
 }
 
-const EditProcesses: React.FC = () => {
+const CreateProcess: React.FC = () => {
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -44,67 +37,20 @@ const EditProcesses: React.FC = () => {
     },
     validate,
     validateOnChange: false,
-    onSubmit: handleSubmit,
+    onSubmit: values => {
+      // eslint-disable-next-line no-alert
+      alert(JSON.stringify(values, null, 2))
+    },
   })
 
-  async function handleSubmit({
-    title,
-    description,
-    deadline,
-    email,
-  }: ProcessesFormData) {
-    try {
-      // Galera do backend fez isso ai lá no form de Login, n sei ao certo como funciona isso na api
-    } finally {
-      /*
-      formik.setSubmitting(false)
-      */
-    }
-  }
-
-  const [state, setState] = useState(false)
   return (
     <div className="processes-container">
       <div className="processes-card">
-        <div className="card-top">
-          <div className="w50">
-            <p className="processes-title">Editar Processo Seletivo</p>
-            <p className="processes-subtitle">
-              Atualize aqui os processos seletivos, preenchendo as informações
-              necessárias.
-            </p>
-          </div>
-          <div className="remove-button-container w50">
-            <Button className="remove-button" onClick={state => setState(true)}>
-              Remover
-            </Button>
-          </div>
-        </div>
-
-        <Modal show={state} onClose={() => setState(false)} showClose={false}>
-          <Modal.Card>
-            <Modal.Card.Header showClose={false}>
-              <Modal.Card.Title className="modal-remove-title">
-                Remover Processo Seletivo
-              </Modal.Card.Title>
-            </Modal.Card.Header>
-            <Modal.Card.Body>
-              <Modal.Content className="modal-remove-content">
-                <p>
-                  Você tem certeza que deseja remover este processo seletivo?
-                </p>
-              </Modal.Content>
-            </Modal.Card.Body>
-            <Modal.Card.Footer className="modal-remove-buttons">
-              {/* Tentar usar o onClick no Button abaixo para executar a função de chamada da api, mas talvez tenha que
-              criar um Form antes.. */}
-
-              <Button>Sim</Button>
-              <Button onClick={() => setState(false)}>Não</Button>
-            </Modal.Card.Footer>
-          </Modal.Card>
-        </Modal>
-
+        <p className="processes-title">Criar Processo Seletivo</p>
+        <p className="processes-subtitle">
+          Adicione aqui novos processos seletivos, preenchendo as informações
+          necessárias.
+        </p>
         <form className="processes-form" onSubmit={formik.handleSubmit}>
           <Form.Field>
             {formik.errors.title ? (
@@ -221,11 +167,10 @@ const EditProcesses: React.FC = () => {
           <Button
             type="submit"
             className="processes-button"
-            size="medium"
-            onClick={validate}
+            loading={formik.isSubmitting}
             fullwidth
           >
-            Salvar
+            Adicionar
           </Button>
         </form>
       </div>
@@ -233,4 +178,4 @@ const EditProcesses: React.FC = () => {
   )
 }
 
-export default EditProcesses
+export default CreateProcess

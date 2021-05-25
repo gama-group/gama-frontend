@@ -11,13 +11,35 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [token, setToken] = useState<string>()
   const [authState, setAuthState] = useState<AuthState>(AuthState.IDLE)
 
+  const manageToken = (token: string | undefined) => {
+    if (token === undefined) {
+      setToken(undefined)
+      setAuthState(AuthState.UNAUTHENTICATED)
+      localStorage.removeItem(AUTH_TOKEN_KEY)
+      return
+    }
+
+    setToken(token)
+    setAuthState(AuthState.AUTHENTICATED)
+    localStorage.setItem(AUTH_TOKEN_KEY, token)
+
+    api.interceptors.request.use(
+      config => ({
+        ...config,
+        headers: {
+          Authorization: token,
+        },
+      }),
+      error => Promise.reject(error),
+    )
+  }
+
   const login = useCallback(async (email: string, password: string) => {
     const response = await api.post('login', { email, password })
 
-    const token = response.data.token as string
-    localStorage.setItem(AUTH_TOKEN_KEY, token)
+    const token = response.data.authorization as string
 
-    setAuthState(AuthState.AUTHENTICATED)
+    manageToken(token)
   }, [])
 
   const register = useCallback(
@@ -37,32 +59,20 @@ export const AuthProvider: React.FC = ({ children }) => {
       })
 
       const token = response.data.authorization as string
-      localStorage.setItem(AUTH_TOKEN_KEY, token)
 
-      setToken(token)
-      setAuthState(AuthState.AUTHENTICATED)
+      manageToken(token)
     },
     [],
   )
 
   const logout = useCallback(async () => {
-    localStorage.removeItem(AUTH_TOKEN_KEY)
-
-    setToken(undefined)
-    setAuthState(AuthState.UNAUTHENTICATED)
+    manageToken(undefined)
   }, [])
 
   const loadToken = useCallback(() => {
     const token = localStorage.getItem(AUTH_TOKEN_KEY)
 
-    if (token === null) {
-      setToken(undefined)
-      setAuthState(AuthState.UNAUTHENTICATED)
-      return
-    }
-
-    setToken(token)
-    setAuthState(AuthState.AUTHENTICATED)
+    manageToken(token ?? undefined)
   }, [])
 
   const isAuthenticated = useMemo(
@@ -72,7 +82,15 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, token, login, register, logout, loadToken }}
+      value={{
+        isAuthenticated,
+        state: authState,
+        token,
+        login,
+        register,
+        logout,
+        loadToken,
+      }}
     >
       {children}
     </AuthContext.Provider>

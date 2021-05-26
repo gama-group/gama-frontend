@@ -4,7 +4,6 @@ import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faEnvelope,
-  faLock,
   faUser,
   faBuilding,
   faKey,
@@ -12,15 +11,15 @@ import {
 
 import './styles.css'
 
-interface FirstFormData {
-  tradeName: string
-  companyName: string
-  cnpj: string
-}
+// interface FirstFormData {
+//   tradeName: string
+//   companyName: string
+//   cnpj: string
+// }
 
-interface SecondFormData {
-  email: string
-}
+// interface SecondFormData {
+//   email: string
+// }
 
 const validate1 = values => {
   interface tsTrash {

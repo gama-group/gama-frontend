@@ -93,6 +93,7 @@ const EditProcess: React.FC = () => {
 
   useEffect(() => {
     getProcessById(Number(selectiveProcessId))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -104,11 +105,12 @@ const EditProcess: React.FC = () => {
       deadline: format(process.deadline, 'yyyy-MM-dd'),
       contact: process.contact,
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [process])
 
   return (
     <div className="processes-container">
-      {!process || !userId ? (
+      {!process ? (
         <div className="not-found title">Carregando...</div>
       ) : process.contractorId === Number(userId) ? (
         <div className="processes-card">

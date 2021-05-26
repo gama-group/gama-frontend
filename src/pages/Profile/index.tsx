@@ -22,7 +22,7 @@ interface SecondFormData {
   email: string
 }
 
-const validate = values => {
+const validate1 = values => {
   interface tsTrash {
     [key: string]: string
   }
@@ -39,6 +39,15 @@ const validate = values => {
   if (!/^[0-9]{14}$/i.test(values.cnpj)) {
     errors.cnpj = 'CNPJ inválido, são necessários 14 digitos'
   }
+  return errors
+}
+
+const validate2 = values => {
+  interface tsTrash {
+    [key: string]: string
+  }
+  const errors: tsTrash = {}
+
   if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'E-mail inválido'
   }
@@ -52,7 +61,7 @@ const Profile: React.FC = () => {
       companyName: '',
       cnpj: '',
     },
-    validate,
+    validate: validate1,
     validateOnChange: false,
     onSubmit: values => {
       // eslint-disable-next-line no-alert
@@ -64,11 +73,10 @@ const Profile: React.FC = () => {
     initialValues: {
       email: '',
     },
-    validate,
+    validate: validate2,
     validateOnChange: false,
     onSubmit: values => {
       // eslint-disable-next-line no-alert
-      alert('entro')
       alert(JSON.stringify(values, null, 2))
     },
   })
@@ -153,7 +161,6 @@ const Profile: React.FC = () => {
               type="submit"
               className="profile-button"
               size="medium"
-              onClick={validate}
               fullwidth
             >
               Salvar
@@ -189,7 +196,6 @@ const Profile: React.FC = () => {
               type="submit"
               className="profile-button"
               size="medium"
-              onClick={validate}
               fullwidth
             >
               Enviar

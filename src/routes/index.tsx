@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
+import Profile from '../pages/Profile'
 
 import { PublicRoute, ProtectedRoute, PrivateRoute } from '../components/Routes'
 
@@ -29,6 +30,7 @@ const Routes: React.FC = () => {
         <PublicRoute path="/" exact component={Home} />
         <ProtectedRoute path="/login" component={Login} />
         <ProtectedRoute path="/register" component={Register} />
+        <PrivateRoute path="/profile" component={Profile} />
         <PrivateRoute path="/processes" component={ProcessesRoutes} />
       </Switch>
     </Router>

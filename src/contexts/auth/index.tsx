@@ -50,7 +50,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       email: string,
       password: string,
     ) => {
-      const response = await api.post('adiciona', {
+      const response = await api.post('contratante', {
         trade_name: tradeName,
         company_name: companyName,
         cnpj,

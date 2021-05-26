@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useState, useMemo } from 'react'
+import jwtDecode from 'jwt-decode'
 
 import api from '../../api'
 import { AuthContextData, AuthState } from './types'
@@ -9,6 +10,7 @@ const AUTH_TOKEN_KEY = '@gama/token'
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [token, setToken] = useState<string>()
+  const [userId, setUserId] = useState<string>()
   const [authState, setAuthState] = useState<AuthState>(AuthState.IDLE)
 
   const manageToken = (token: string | undefined) => {
@@ -23,13 +25,20 @@ export const AuthProvider: React.FC = ({ children }) => {
     setAuthState(AuthState.AUTHENTICATED)
     localStorage.setItem(AUTH_TOKEN_KEY, token)
 
+    const { id } = jwtDecode<{ id: string }>(token)
+    setUserId(id)
+
     api.interceptors.request.use(
-      config => ({
-        ...config,
-        headers: {
-          Authorization: token,
-        },
-      }),
+      config => {
+        if (config?.headers?.Authorization !== undefined) return config
+
+        return {
+          ...config,
+          headers: {
+            Authorization: token,
+          },
+        }
+      },
       error => Promise.reject(error),
     )
   }
@@ -86,6 +95,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         isAuthenticated,
         state: authState,
         token,
+        userId,
         login,
         register,
         logout,

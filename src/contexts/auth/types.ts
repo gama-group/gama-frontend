@@ -7,6 +7,7 @@ export enum AuthState {
 export interface AuthContextData {
   isAuthenticated: boolean
   state: AuthState
+  userId?: string
   token?: string
   login: (email: string, password: string) => Promise<void>
   register: (

@@ -25,6 +25,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     getAllProcesses()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

@@ -15,7 +15,7 @@ interface SelectiveProcess {
   deadline: string
 }
 
-const PrivateArea: React.FC = () => {
+const ProcessesList: React.FC = () => {
   const [selectiveProcesses, setSelectiveProcesses] = useState<
     SelectiveProcess[]
   >([])
@@ -31,7 +31,7 @@ const PrivateArea: React.FC = () => {
   }, [])
 
   return (
-    <div className="private-area">
+    <div className="processes-list">
       <div className="top-container">
         <div className="title-container">
           <h3>Processos Seletivos</h3>
@@ -79,4 +79,4 @@ const PrivateArea: React.FC = () => {
   )
 }
 
-export default PrivateArea
+export default ProcessesList

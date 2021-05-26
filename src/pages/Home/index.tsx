@@ -1,56 +1,42 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable camelcase */
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 
 import SelectionProcessCard from './SelectionProcessCard'
 
-import api from '../../api'
+import { Process } from '../../contexts/processes/types'
+import useProcesses from '../../hooks/useProcesses'
 
 import './styles.css'
 
-interface SelectiveProcess {
-  id: number
-  method_of_contact: string
-  title: string
-  deadline: string
-  description: string
+const compareSelectiveProcesses = (a: Process, b: Process) => {
+  const dateA = a.deadline.valueOf()
+  const dateB = b.deadline.valueOf()
+
+  // eslint-disable-next-line no-nested-ternary
+  return dateA < dateB ? 1 : dateA > dateB ? -1 : 0
 }
 
 const Home: React.FC = () => {
-  const [selectiveProcesses, setSelectiveProcesses] = useState<
-    SelectiveProcess[]
-  >([])
+  const { processesList, getAllProcesses } = useProcesses()
+
+  const processesListSorted = useMemo(
+    () => processesList.sort(compareSelectiveProcesses),
+    [processesList],
+  )
 
   useEffect(() => {
-    const fetchData = async () => {
-      api.get('findAllProcess').then(response => {
-        setSelectiveProcesses(
-          Object.values<SelectiveProcess>(response.data).sort(
-            compareSelectiveProcesses,
-          ),
-        )
-      })
-    }
-
-    fetchData()
+    getAllProcesses()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const compareSelectiveProcesses = (a, b) => {
-    const dateA = Date.parse(a.deadline)
-    const dateB = Date.parse(b.deadline)
-
-    return dateA < dateB ? 1 : dateA > dateB ? -1 : 0
-  }
 
   return (
     <div className="list-selection-process">
-      {selectiveProcesses.length !== 0 ? (
-        selectiveProcesses.map(item => (
+      {processesListSorted.length !== 0 ? (
+        processesListSorted.map(item => (
           <SelectionProcessCard
             key={item.id}
             title={item.title}
             deadline={item.deadline}
-            contact={item.method_of_contact}
+            contact={item.contact}
             description={item.description}
           />
         ))

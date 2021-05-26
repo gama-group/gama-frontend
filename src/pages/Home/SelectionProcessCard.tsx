@@ -1,8 +1,9 @@
 import React from 'react'
+import { format, isAfter } from 'date-fns'
 
 interface Props {
   title: string
-  deadline: string
+  deadline: Date
   contact: string
   description: string
 }
@@ -13,7 +14,7 @@ const SelectionProcessCard: React.FC<Props> = ({
   contact,
   description,
 }) => {
-  const isDeadlineOver = Date.parse(deadline) < Date.now()
+  const isDeadlineOver = isAfter(Date.now(), deadline)
 
   return (
     <div
@@ -27,7 +28,7 @@ const SelectionProcessCard: React.FC<Props> = ({
           {isDeadlineOver
             ? 'Inscrições encerradas: '
             : 'Término das inscrições: '}
-          {deadline}
+          {format(deadline, 'dd/MM/yyyy')}
         </div>
       </div>
       <div className="description-card">{description}</div>

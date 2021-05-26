@@ -1,37 +1,27 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react'
 import { Button } from 'react-bulma-components'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
-import api from '../../api'
+import { format } from 'date-fns'
+
+import useProcesses from '../../hooks/useProcesses'
+import useAuth from '../../hooks/useAuth'
+
 import './styles.css'
 
-interface SelectiveProcess {
-  id: number
-  method_of_contact: string
-  title: string
-  deadline: string
-}
+const ProcessesList: React.FC = () => {
+  const { userId } = useAuth()
 
-const PrivateArea: React.FC = () => {
-  const [selectiveProcesses, setSelectiveProcesses] = useState<
-    SelectiveProcess[]
-  >([])
+  const { processesList, getProcessesByContractor } = useProcesses()
 
   useEffect(() => {
-    const fetchData = async () => {
-      api.get('processo-seletivo/contratante').then(response => {
-        setSelectiveProcesses(Object.values<SelectiveProcess>(response.data))
-      })
-    }
-
-    fetchData()
+    getProcessesByContractor(Number(userId))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <div className="private-area">
+    <div className="processes-list">
       <div className="top-container">
         <div className="title-container">
           <h3>Processos Seletivos</h3>
@@ -46,7 +36,7 @@ const PrivateArea: React.FC = () => {
           </Button>
         </Link>
       </div>
-      {selectiveProcesses.length !== 0 ? (
+      {processesList.length !== 0 ? (
         <table className="sp-table">
           <thead>
             <tr>
@@ -57,13 +47,15 @@ const PrivateArea: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {selectiveProcesses.map(item => (
+            {processesList.map(item => (
               <tr className="sp-table-row" key={item.id}>
                 <td>{item.title}</td>
-                <td>{item.deadline}</td>
-                <td>{item.method_of_contact}</td>
+                <td>{format(item.deadline, 'dd/MM/yyyy')}</td>
+                <td>{item.contact}</td>
                 <td>
-                  <FontAwesomeIcon icon={faPen} className="edit-icon" />
+                  <Link to={`/processes/${item.id}/edit`}>
+                    <FontAwesomeIcon icon={faPen} className="edit-icon" />
+                  </Link>
                   <FontAwesomeIcon icon={faTrash} className="trash-icon" />
                 </td>
               </tr>
@@ -79,4 +71,4 @@ const PrivateArea: React.FC = () => {
   )
 }
 
-export default PrivateArea
+export default ProcessesList

@@ -28,6 +28,12 @@
     "prettier"
   ],
   "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
     "prettier/prettier": ["error", {
       "endOfLine": "auto"
     }],
@@ -38,6 +44,7 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-props-no-spreading": "off",
+    "no-nested-ternary": "off",
     "react/jsx-filename-extension": [
       1,
       {

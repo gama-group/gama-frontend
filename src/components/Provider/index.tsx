@@ -1,14 +1,19 @@
+import 'react-toastify/dist/ReactToastify.css'
+
 import React from 'react'
 
 import { ToastContainer } from 'react-toastify'
+
 import { AuthProvider } from '../../contexts/auth'
-import 'react-toastify/dist/ReactToastify.css'
+import { ProcessesProvider } from '../../contexts/processes'
 
 const Provider: React.FC = ({ children }) => {
   return (
     <AuthProvider>
-      {children}
-      <ToastContainer />
+      <ProcessesProvider>
+        {children}
+        <ToastContainer />
+      </ProcessesProvider>
     </AuthProvider>
   )
 }

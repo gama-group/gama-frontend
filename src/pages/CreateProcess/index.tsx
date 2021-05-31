@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Button, Icon, Columns } from 'react-bulma-components'
+import { useHistory } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
@@ -50,6 +51,8 @@ const CreateProcess: React.FC = () => {
     onSubmit: handleSubmit,
   })
 
+  const history = useHistory()
+
   const { createProcess } = useProcesses()
 
   async function handleSubmit({
@@ -66,6 +69,7 @@ const CreateProcess: React.FC = () => {
       toast.error('Não foi possível criar este processo seletivo')
     } finally {
       formik.setSubmitting(false)
+      history.push('/processes')
     }
   }
 

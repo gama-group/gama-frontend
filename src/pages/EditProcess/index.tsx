@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { format } from 'date-fns'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { Form, Button, Icon, Modal, Columns } from 'react-bulma-components'
 import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -47,6 +47,8 @@ const validate = values => {
 const EditProcess: React.FC = () => {
   const { id: selectiveProcessId } = useParams<EditProcessParams>()
 
+  const history = useHistory()
+
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -64,6 +66,7 @@ const EditProcess: React.FC = () => {
     firstProcess: process,
     getProcessById,
     updateProcess,
+    deleteProcess,
   } = useProcesses()
 
   const [modalOpen, setModalOpen] = useState(false)
@@ -88,6 +91,18 @@ const EditProcess: React.FC = () => {
       toast.error('Não foi possível criar este processo seletivo')
     } finally {
       formik.setSubmitting(false)
+      history.push('/processes')
+    }
+  }
+
+  async function handleDelete() {
+    try {
+      await deleteProcess(Number(selectiveProcessId))
+      toast.success('Processo seletivo excluido!')
+    } catch {
+      toast.error('Não foi possível deletar este processo')
+    } finally {
+      history.push('/processes')
     }
   }
 
@@ -154,7 +169,7 @@ const EditProcess: React.FC = () => {
                 {/* Tentar usar o onClick no Button abaixo para executar a função de chamada da api, mas talvez tenha que
               criar um Form antes.. */}
 
-                <Button>Sim</Button>
+                <Button onClick={handleDelete}>Sim</Button>
                 <Button onClick={() => setModalOpen(false)}>Não</Button>
               </Modal.Card.Footer>
             </Modal.Card>

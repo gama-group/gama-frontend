@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { format } from 'date-fns'
+import { toast } from 'react-toastify'
 
 import useProcesses from '../../hooks/useProcesses'
 import useAuth from '../../hooks/useAuth'
@@ -13,12 +14,24 @@ import './styles.css'
 const ProcessesList: React.FC = () => {
   const { userId } = useAuth()
 
-  const { processesList, getProcessesByContractor } = useProcesses()
+  const { processesList, getProcessesByContractor, deleteProcess } =
+    useProcesses()
 
   useEffect(() => {
     getProcessesByContractor(Number(userId))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  async function handleDelete(id: number) {
+    try {
+      await deleteProcess(id)
+      toast.success('Processo seletivo excluido!')
+    } catch {
+      toast.error('Não foi possível deletar este processo')
+    } finally {
+      getProcessesByContractor(Number(userId))
+    }
+  }
 
   return (
     <div className="processes-list">
@@ -56,7 +69,14 @@ const ProcessesList: React.FC = () => {
                   <Link to={`/processes/${item.id}/edit`}>
                     <FontAwesomeIcon icon={faPen} className="edit-icon" />
                   </Link>
-                  <FontAwesomeIcon icon={faTrash} className="trash-icon" />
+                  <Link
+                    to="/processes"
+                    onClick={() => {
+                      handleDelete(item.id)
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faTrash} className="trash-icon" />
+                  </Link>
                 </td>
               </tr>
             ))}

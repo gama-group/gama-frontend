@@ -120,7 +120,7 @@ const CreateProcess: React.FC = () => {
               <Columns>
                 <Columns.Column size="half">
                   <Form.Field className="w50 margin">
-                    {formik.errors.deadline ? (
+                    {formik.errors.contact ? (
                       <div className="processes-error">
                         <p>{formik.errors.contact}</p>
                       </div>

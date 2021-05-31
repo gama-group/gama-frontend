@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { toast } from 'react-toastify'
 
+import * as Yup from 'yup'
 import useProcesses from '../../hooks/useProcesses'
 
 import './styles.css'
@@ -17,27 +18,6 @@ interface CreateProcessFormData {
   contact: string
 }
 
-const validate = values => {
-  interface tsTrash {
-    [key: string]: string
-  }
-  const errors: tsTrash = {}
-  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.contact)) {
-    errors.contact = 'E-mail inválido'
-  }
-  if (values.title === undefined || values.title.length < 1) {
-    errors.title = 'Título inválido'
-  }
-  if (values.description === undefined || values.description.length < 1) {
-    errors.description = 'Descrição inválida'
-  }
-  if (values.deadline === undefined || values.deadline.length < 1) {
-    errors.deadline = 'Prazo inválido'
-  }
-
-  return errors
-}
-
 const CreateProcess: React.FC = () => {
   const formik = useFormik({
     initialValues: {
@@ -46,7 +26,14 @@ const CreateProcess: React.FC = () => {
       deadline: '',
       contact: '',
     },
-    validate,
+    validationSchema: Yup.object({
+      title: Yup.string().required('Insira um título.'),
+      description: Yup.string().required('Insira uma descrição.'),
+      deadline: Yup.date().required('Insira um prazo.'),
+      contact: Yup.string()
+        .email('Endereço de e-mail inválido.')
+        .required('Insira um e-mail.'),
+    }),
     validateOnChange: false,
     onSubmit: handleSubmit,
   })

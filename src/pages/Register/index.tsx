@@ -12,6 +12,7 @@ import {
   faKey,
 } from '@fortawesome/free-solid-svg-icons'
 import { toast } from 'react-toastify'
+import * as Yup from 'yup'
 
 import useAuth from '../../hooks/useAuth'
 
@@ -68,7 +69,22 @@ const Register: React.FC = () => {
       email: '',
       password: '',
     },
-    validate,
+    validationSchema: Yup.object({
+      trade_name: Yup.string().required('Insira um nome fantasia.'),
+      company_name: Yup.string().required('Insira a razão social.'),
+      cnpj: Yup.string()
+        .required('Insira um CNPJ.')
+        .matches(/^[0-9]{14}$/, 'CNPJ Inválido.'),
+      email: Yup.string()
+        .email('Endereço de e-mail inválido.')
+        .required('Insira um e-mail.'),
+      password: Yup.string()
+        .required('Insira uma senha.')
+        .matches(
+          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+          'Deve possuir 8 caracteres, um maiúsculo, um minúsculo, um número e um caractere especial.',
+        ),
+    }),
     validateOnChange: false,
     onSubmit: handleSubmit,
   })

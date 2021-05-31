@@ -30,6 +30,12 @@ export interface UpdateProcessResponse extends GetAllProcessesResponse {
   // eslint-disable-next-line camelcase
   id_contractor: number
 }
+
+export interface DeleteProcessResponse extends GetAllProcessesResponse {
+  // eslint-disable-next-line camelcase
+  id_contractor: number
+}
+
 export interface ProcessesContextData {
   processesList: Process[]
   firstProcess?: Process
@@ -50,4 +56,5 @@ export interface ProcessesContextData {
     deadline: Date,
     contact: string,
   ) => Promise<void>
+  deleteProcess: (id: number) => Promise<void>
 }

@@ -17,9 +17,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   background-color: #f4f4f4;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 #root {
-  height: 100%;
+  min-height: inherit;
 }

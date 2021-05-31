@@ -112,9 +112,13 @@ p {
   color: #bb1d2a;
 }
 
-@media all and (max-width: 760px) {
+@media all and (max-width: 800px) {
   .processes-card {
     min-width: auto;
     padding: 24px 0;
+  }
+
+  .processes-button {
+    width: 100% !important;
   }
 }

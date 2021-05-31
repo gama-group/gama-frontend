@@ -17,7 +17,7 @@ h3 {
 }
 
 .top-container {
-  display: flex;
+  display: block;
   flex-direction: row;
   align-items: center;
 }
@@ -85,4 +85,20 @@ tr td:last-child {
   display: flex;
   justify-content: center;
   padding: 50px;
+}
+
+@media all and (max-width: 800px) {
+
+  .title-container {
+    text-align: center;
+  }
+
+  .top-container a {
+    width: 100%;
+    padding: 20px 0;
+    display: inline-flex;
+    justify-content: center;
+  }
+
+  
 }

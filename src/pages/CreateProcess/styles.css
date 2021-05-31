@@ -49,6 +49,11 @@ p {
   margin: 2px 0;
 }
 
+.field-inputs{
+  display: flex;
+  align-items: flex-end;
+}
+
 .input-descricao {
   padding: 8px;
   padding-left: 2.5em;

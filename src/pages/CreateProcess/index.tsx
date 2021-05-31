@@ -117,7 +117,7 @@ const CreateProcess: React.FC = () => {
             </Columns.Column>
 
             <Columns.Column size={12}>
-              <Columns>
+              <Columns className="field-inputs">
                 <Columns.Column size="half">
                   <Form.Field className="w50 margin">
                     {formik.errors.contact ? (

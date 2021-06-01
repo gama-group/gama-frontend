@@ -6,7 +6,7 @@ p {
 
 .login-container {
   width: 100%;
-  height: inherit;
+  min-height: inherit;
   padding: 0 24px;
 
   display: flex;

@@ -5,6 +5,7 @@ import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { toast } from 'react-toastify'
+import * as Yup from 'yup'
 
 import useAuth from '../../hooks/useAuth'
 
@@ -15,23 +16,6 @@ interface LoginFormData {
   password: string
 }
 
-const validate = values => {
-  const errors: Record<string, string> = {}
-
-  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
-  }
-  if (
-    values.password &&
-    values.password !== undefined &&
-    values.password.length < 8
-  ) {
-    errors.password = 'Password must be at least 8 characters long'
-  }
-
-  return errors
-}
-
 const Login: React.FC = () => {
   const history = useHistory()
   const formik = useFormik({
@@ -39,7 +23,12 @@ const Login: React.FC = () => {
       email: '',
       password: '',
     },
-    validate,
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email('Endereço de e-mail inválido.')
+        .required('Insira um e-mail.'),
+      password: Yup.string().required('Insira uma senha.'),
+    }),
     validateOnChange: false,
     onSubmit: handleSubmit,
   })

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { format } from 'date-fns'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { Form, Button, Icon, Modal, Columns } from 'react-bulma-components'
 import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { toast } from 'react-toastify'
+import * as Yup from 'yup'
 
 import useProcesses from '../../hooks/useProcesses'
 import useAuth from '../../hooks/useAuth'
@@ -23,29 +24,10 @@ interface EditProcessFormData {
   contact: string
 }
 
-const validate = values => {
-  interface tsTrash {
-    [key: string]: string
-  }
-  const errors: tsTrash = {}
-  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.contact)) {
-    errors.contact = 'E-mail inválido'
-  }
-  if (values.title === undefined || values.title.length < 1) {
-    errors.title = 'Título inválido'
-  }
-  if (values.description === undefined || values.description.length < 1) {
-    errors.description = 'Descrição inválida'
-  }
-  if (values.deadline === undefined || values.deadline.length < 1) {
-    errors.deadline = 'Prazo inválido'
-  }
-
-  return errors
-}
-
 const EditProcess: React.FC = () => {
   const { id: selectiveProcessId } = useParams<EditProcessParams>()
+
+  const history = useHistory()
 
   const formik = useFormik({
     initialValues: {
@@ -54,7 +36,14 @@ const EditProcess: React.FC = () => {
       deadline: '',
       contact: '',
     },
-    validate,
+    validationSchema: Yup.object({
+      title: Yup.string().required('Insira um título.'),
+      description: Yup.string().required('Insira uma descrição.'),
+      deadline: Yup.date().required('Insira um prazo.'),
+      contact: Yup.string()
+        .email('Endereço de e-mail inválido.')
+        .required('Insira um e-mail.'),
+    }),
     validateOnChange: false,
     onSubmit: handleSubmit,
   })
@@ -64,6 +53,7 @@ const EditProcess: React.FC = () => {
     firstProcess: process,
     getProcessById,
     updateProcess,
+    deleteProcess,
   } = useProcesses()
 
   const [modalOpen, setModalOpen] = useState(false)
@@ -88,6 +78,18 @@ const EditProcess: React.FC = () => {
       toast.error('Não foi possível criar este processo seletivo')
     } finally {
       formik.setSubmitting(false)
+      history.push('/processes')
+    }
+  }
+
+  async function handleDelete() {
+    try {
+      await deleteProcess(Number(selectiveProcessId))
+      toast.success('Processo seletivo excluido!')
+    } catch {
+      toast.error('Não foi possível deletar este processo')
+    } finally {
+      history.push('/processes')
     }
   }
 
@@ -154,7 +156,7 @@ const EditProcess: React.FC = () => {
                 {/* Tentar usar o onClick no Button abaixo para executar a função de chamada da api, mas talvez tenha que
               criar um Form antes.. */}
 
-                <Button>Sim</Button>
+                <Button onClick={handleDelete}>Sim</Button>
                 <Button onClick={() => setModalOpen(false)}>Não</Button>
               </Modal.Card.Footer>
             </Modal.Card>

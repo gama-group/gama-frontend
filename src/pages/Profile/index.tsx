@@ -8,6 +8,7 @@ import {
   faBuilding,
   faKey,
 } from '@fortawesome/free-solid-svg-icons'
+import * as Yup from 'yup'
 
 import './styles.css'
 
@@ -21,38 +22,6 @@ import './styles.css'
 //   email: string
 // }
 
-const validate1 = values => {
-  interface tsTrash {
-    [key: string]: string
-  }
-  const errors: tsTrash = {}
-
-  if (values.trade_name === '') {
-    errors.trade_name = 'Nome inválido'
-  }
-
-  if (values.company_name === '') {
-    errors.company_name = 'Razão social inválida'
-  }
-
-  if (!/^[0-9]{14}$/i.test(values.cnpj)) {
-    errors.cnpj = 'CNPJ inválido, são necessários 14 digitos'
-  }
-  return errors
-}
-
-const validate2 = values => {
-  interface tsTrash {
-    [key: string]: string
-  }
-  const errors: tsTrash = {}
-
-  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'E-mail inválido'
-  }
-  return errors
-}
-
 const Profile: React.FC = () => {
   const form1 = useFormik({
     initialValues: {
@@ -60,7 +29,13 @@ const Profile: React.FC = () => {
       companyName: '',
       cnpj: '',
     },
-    validate: validate1,
+    validationSchema: Yup.object({
+      tradeName: Yup.string().required('Insira um nome fantasia.'),
+      companyName: Yup.string().required('Insira a razão social.'),
+      cnpj: Yup.string()
+        .required('Insira um CNPJ.')
+        .matches(/^[0-9]{14}$/, 'CNPJ Inválido.'),
+    }),
     validateOnChange: false,
     onSubmit: values => {
       // eslint-disable-next-line no-alert
@@ -72,7 +47,11 @@ const Profile: React.FC = () => {
     initialValues: {
       email: '',
     },
-    validate: validate2,
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email('Endereço de e-mail inválido.')
+        .required('Insira um e-mail.'),
+    }),
     validateOnChange: false,
     onSubmit: values => {
       // eslint-disable-next-line no-alert

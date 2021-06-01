@@ -10,6 +10,7 @@ import {
   GetProcessById,
   CreateProcessResponse,
   UpdateProcessResponse,
+  DeleteProcessResponse,
 } from './types'
 
 const ProcessesContext = createContext<ProcessesContextData>(
@@ -105,6 +106,10 @@ export const ProcessesProvider: React.FC = ({ children }) => {
     [],
   )
 
+  const deleteProcess = useCallback(async (id: number) => {
+    await api.delete<DeleteProcessResponse>(`/processo-seletivo/${id}`)
+  }, [])
+
   const processesList = useMemo(() => processes, [processes])
   const firstProcess = useMemo(
     () => (processes.length > 0 ? processes[0] : undefined),
@@ -121,6 +126,7 @@ export const ProcessesProvider: React.FC = ({ children }) => {
         getProcessById,
         createProcess,
         updateProcess,
+        deleteProcess,
       }}
     >
       {children}

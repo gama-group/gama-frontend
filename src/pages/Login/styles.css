@@ -4,6 +4,14 @@ p {
   color: #000;
 }
 
+.login-logo {
+  font-size: 24px;
+  font-family: Quicksand;
+  font-weight: bold;
+  color: #623CEA;
+  margin-bottom: 16px;
+}
+
 .login-container {
   width: 100%;
   min-height: inherit;
@@ -30,7 +38,7 @@ p {
   margin-bottom: 8px;
   font-family: 'Quicksand';
   font-weight: 700;
-  font-size: 40px;
+  font-size: 48px;
   color: #000;
   text-align: center;
 }

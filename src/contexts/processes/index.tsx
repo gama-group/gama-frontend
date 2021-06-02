@@ -30,7 +30,7 @@ export const ProcessesProvider: React.FC = ({ children }) => {
         id: process.id,
         title: process.title,
         description: process.description,
-        deadline: parse(process.deadline, 'dd/MM/yyyy', new Date()),
+        deadline: parse(process.deadline, 'yyyy-MM-dd', new Date()),
         contact: process.method_of_contact,
       })),
     )
@@ -46,7 +46,7 @@ export const ProcessesProvider: React.FC = ({ children }) => {
         id: process.id,
         title: process.title,
         description: process.description,
-        deadline: parse(process.deadline, 'dd/MM/yyyy', new Date()),
+        deadline: parse(process.deadline, 'yyyy-MM-dd', new Date()),
         contact: process.method_of_contact,
       })),
     )
@@ -64,7 +64,7 @@ export const ProcessesProvider: React.FC = ({ children }) => {
         id: process.id,
         title: process.title,
         description: process.description,
-        deadline: parse(process.deadline, 'dd/MM/yyyy', new Date()),
+        deadline: parse(process.deadline, 'yyyy-MM-dd', new Date()),
         contact: process.method_of_contact,
         contractorId: process.id_contractor,
       },
@@ -81,7 +81,7 @@ export const ProcessesProvider: React.FC = ({ children }) => {
       await api.post<CreateProcessResponse>('/processo-seletivo', {
         title,
         description,
-        deadline: format(deadline, 'dd/MM/yyyy'),
+        deadline: format(deadline, 'yyyy-MM-dd'),
         method_of_contact: contact,
       })
     },
@@ -99,7 +99,7 @@ export const ProcessesProvider: React.FC = ({ children }) => {
       await api.put<UpdateProcessResponse>(`/processo-seletivo/${id}`, {
         title,
         description,
-        deadline: format(deadline, 'dd/MM/yyyy'),
+        deadline: format(deadline, 'yyyy-MM-dd'),
         method_of_contact: contact,
       })
     },

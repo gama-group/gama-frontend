@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { Form, Button, Icon } from 'react-bulma-components'
 import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -116,9 +116,9 @@ const Login: React.FC = () => {
 
         <div className="login-redirect">
           <p>Não possui uma conta? </p>
-          <a href="./register">
+          <Link to="/register">
             <p>Cadastre-se</p>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

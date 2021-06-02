@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { Form, Button, Icon } from 'react-bulma-components'
 import { useFormik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -214,9 +214,9 @@ const Register: React.FC = () => {
 
         <div className="register-redirect">
           <p>Já possui uma conta? </p>
-          <a href="./login">
+          <Link to="/login">
             <p>Faça login</p>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

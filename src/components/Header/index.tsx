@@ -31,9 +31,11 @@ const Header: React.FC = () => {
       {isAuthenticated ? (
         <div>
           <div className="profile-logout">
-            <Icon>
-              <FontAwesomeIcon icon={faUserCircle} className="fa-2x" />
-            </Icon>
+            <Link to="/profile">
+              <Icon>
+                <FontAwesomeIcon icon={faUserCircle} className="fa-2x" />
+              </Icon>
+            </Link>
             <Button type="button" className="exit-button ml-4" onClick={logout}>
               <Icon>
                 <FontAwesomeIcon icon={faSignOutAlt} className="fa-1x" />

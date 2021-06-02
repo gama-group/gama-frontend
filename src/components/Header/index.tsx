@@ -60,7 +60,7 @@ const Header: React.FC = () => {
         <>
           <div className="is-hidden-mobile">
             <div className="profile-logout">
-              <Link to="/profile">
+              <Link to="/profile" className="profile-logout">
                 <Icon>
                   <FontAwesomeIcon icon={faUserCircle} className="fa-2x" />
                 </Icon>

@@ -19,8 +19,11 @@ const ProcessesContext = createContext<ProcessesContextData>(
 
 export const ProcessesProvider: React.FC = ({ children }) => {
   const [processes, setProcesses] = useState<Process[]>([])
+  const [isFetching, setFetching] = useState(false)
 
   const getAllProcesses = useCallback(async () => {
+    setFetching(true)
+
     const response = await api.get<GetAllProcessesResponse[]>(
       '/processo-seletivo/todos',
     )
@@ -34,9 +37,13 @@ export const ProcessesProvider: React.FC = ({ children }) => {
         contact: process.method_of_contact,
       })),
     )
+
+    setFetching(false)
   }, [])
 
   const getProcessesByContractor = useCallback(async (contractorId: number) => {
+    setFetching(true)
+
     const response = await api.get<GetProcessesByContractor[]>(
       `/processo-seletivo/${contractorId}`,
     )
@@ -50,9 +57,13 @@ export const ProcessesProvider: React.FC = ({ children }) => {
         contact: process.method_of_contact,
       })),
     )
+
+    setFetching(false)
   }, [])
 
   const getProcessById = useCallback(async (id: number) => {
+    setFetching(true)
+
     const response = await api.get<GetProcessById>(
       `/processo-seletivo?id=${id}`,
     )
@@ -69,6 +80,8 @@ export const ProcessesProvider: React.FC = ({ children }) => {
         contractorId: process.id_contractor,
       },
     ])
+
+    setFetching(false)
   }, [])
 
   const createProcess = useCallback(
@@ -119,6 +132,7 @@ export const ProcessesProvider: React.FC = ({ children }) => {
   return (
     <ProcessesContext.Provider
       value={{
+        isFetching,
         processesList,
         firstProcess,
         getAllProcesses,

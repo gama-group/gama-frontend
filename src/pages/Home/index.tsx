@@ -16,7 +16,7 @@ const compareSelectiveProcesses = (a: Process, b: Process) => {
 }
 
 const Home: React.FC = () => {
-  const { processesList, getAllProcesses } = useProcesses()
+  const { isFetching, processesList, getAllProcesses } = useProcesses()
 
   const processesListSorted = useMemo(
     () => processesList.sort(compareSelectiveProcesses),
@@ -30,7 +30,9 @@ const Home: React.FC = () => {
 
   return (
     <div className="process-board">
-      {processesListSorted.length !== 0 ? (
+      {isFetching ? (
+        <div className="process-board-not-found title">Carregando...</div>
+      ) : processesListSorted.length !== 0 ? (
         processesListSorted.map(item => (
           <SelectionProcessCard
             key={item.id}

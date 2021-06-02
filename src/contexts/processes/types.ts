@@ -37,6 +37,7 @@ export interface DeleteProcessResponse extends GetAllProcessesResponse {
 }
 
 export interface ProcessesContextData {
+  isFetching: boolean
   processesList: Process[]
   firstProcess?: Process
 

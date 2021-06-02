@@ -14,7 +14,7 @@ import './styles.css'
 const ProcessesList: React.FC = () => {
   const { userId } = useAuth()
 
-  const { processesList, getProcessesByContractor, deleteProcess } =
+  const { isFetching, processesList, getProcessesByContractor, deleteProcess } =
     useProcesses()
 
   useEffect(() => {
@@ -49,7 +49,9 @@ const ProcessesList: React.FC = () => {
           </Button>
         </Link>
       </div>
-      {processesList.length !== 0 ? (
+      {isFetching ? (
+        <div className="not-found title">Carregando...</div>
+      ) : processesList.length !== 0 ? (
         <div style={{ overflowX: 'auto' }}>
           <table className="sp-table">
             <thead>

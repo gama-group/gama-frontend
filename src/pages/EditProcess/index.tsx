@@ -50,6 +50,7 @@ const EditProcess: React.FC = () => {
 
   const { userId } = useAuth()
   const {
+    isFetching,
     firstProcess: process,
     getProcessById,
     updateProcess,

@@ -29,7 +29,7 @@ const Home: React.FC = () => {
   }, [])
 
   return (
-    <div className="list-selection-process">
+    <div className="process-board">
       {processesListSorted.length !== 0 ? (
         processesListSorted.map(item => (
           <SelectionProcessCard
@@ -41,7 +41,7 @@ const Home: React.FC = () => {
           />
         ))
       ) : (
-        <div className="not-found title">
+        <div className="process-board-not-found title">
           Não há processos seletivos abertos
         </div>
       )}

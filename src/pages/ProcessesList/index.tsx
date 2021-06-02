@@ -66,7 +66,7 @@ const ProcessesList: React.FC = () => {
                   <td>{item.title}</td>
                   <td>{format(item.deadline, 'dd/MM/yyyy')}</td>
                   <td>{item.contact}</td>
-                  <td>
+                  <td style={{ display: 'flex' }}>
                     <Link to={`/processes/${item.id}/edit`}>
                       <FontAwesomeIcon icon={faPen} className="edit-icon" />
                     </Link>

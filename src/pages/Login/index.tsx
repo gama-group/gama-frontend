@@ -50,6 +50,9 @@ const Login: React.FC = () => {
   return (
     <div className="login-container">
       <div className="login-card">
+        <Link to="/" className="login-logo">
+          Gama
+        </Link>
         <p className="login-title">Login</p>
         <p className="login-subtitle">
           Faça login para obter acesso à área privada.
@@ -99,9 +102,9 @@ const Login: React.FC = () => {
                 value={formik.values.password}
               />
             </Form.Control>
-            <div className="login-forgot">
+            {/* <div className="login-forgot">
               <p>Esqueci minha senha</p>
-            </div>
+            </div> */}
           </Form.Field>
 
           <Button

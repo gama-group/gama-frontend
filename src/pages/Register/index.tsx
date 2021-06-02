@@ -84,6 +84,9 @@ const Register: React.FC = () => {
   return (
     <div className="register-container">
       <div className="register-card">
+        <Link to="/" className="register-logo">
+          Gama
+        </Link>
         <p className="register-title">Cadastro</p>
         <p className="register-subtitle">
           Crie sua conta para obter acesso à área privada.

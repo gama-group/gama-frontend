@@ -1,46 +1,118 @@
-# Getting Started with Create React App
+<!-- Logo -->
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center" style="font-family: Ubuntu; font-size: 45px; color: #333; margin-bottom: 0">
+  Grupo Gama
+</h1>
 
-## Available Scripts
+<!-- Badges -->
 
-In the project directory, you can run:
+<!-- <p align="center">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/igooralm192/nlw-01">
+</p> -->
 
-### `yarn start`
+<!-- Description -->
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<h4 align="center">
+	🚀 Selective Processes Management Application 🚀
+</h4>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<!-- Summary -->
 
-### `yarn test`
+<h2>Summary</h2>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [:framed_picture: Layout](#framed_picture-layout)
+- [:computer: Demo](#computer-demo)
+- [:rocket: Technologies](#rocket-technologies)
+- [:boom: How to run](#boom-how-to-run)
+    - [Prerequisites](#prerequisites)
+    - [Setting environment variables](#setting-environment-variables)
+    - [Running the application](#running-the-application)
+- [:wrench: Environment variables](#wrench-environment-variables)
+- [:recycle: How to contribute](#recycle-how-to-contribute)
+- [:memo: License](#memo-license)
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<a id="layout"></a>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## :framed_picture: Layout
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The layout of this application is available on [Figma](https://www.figma.com/file/HROTVF5axsVT9DBSjnpfUc/Grupo-Gama).
 
-### `yarn eject`
+<a id="demo"></a>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## :computer: Demo
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This application was hosted by [Netlify](https://www.netlify.com/) e can be found here: [Gama](https://gama-frontend.netlify.com/).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<a id="tecnologias"></a>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## :rocket: Technologies
 
-## Learn More
+This application uses this following technologies:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [TypeScript](https://www.typescriptlang.org/)
+- [ReactJS](https://reactjs.org/)
+- [ESLint](https://eslint.org/) (Code standardization)
+- [Prettier](https://prettier.io/) (Code formatting)
+- [React Router](https://reactrouter.com/web/guides/quick-start)
+- [Date-FNS](https://date-fns.org/) (Date formatting)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<a id="como-executar"></a>
+
+## :boom: How to run
+
+#### Prerequisites
+
+To run this application, you need to have it on your machine:
+
+- [NodeJS](https://nodejs.org/en/download/)
+- [Yarn](https://classic.yarnpkg.com/en/docs/install/)
+
+
+#### Setting environment variables
+```sh
+# Copy .env from .env.example to setup environment variables
+$ cp .env.example .env
+```
+
+#### Running the application
+
+```sh
+# Clone this repository
+$ git clone https://github.com/gama-group/gama-frontend
+
+# Move to root directory
+$ cd gama-frontend
+
+# Install dependencies
+$ yarn install
+
+# Run on a local server
+$ yarn start
+```
+
+<a id="variaveis-ambiente"></a>
+
+## :wrench: Environment variables
+
+| Name          | Description     | Default               |
+| -             | -               | -                     |
+| REACT_APP_API | URL of the API  | http://localhost:3333 |
+
+---
+
+<a id="como-contribuir"></a>
+
+## :recycle: How to contribute
+
+- Fork this repository
+- Create a branch with the name of your feature: `git checkout -b my-feature`
+- Commit your changes: `git commit -m 'feat: My new feature'`
+- Push your branch: `git push origin my-feature`
+
+<a id="licenca"></a>
+
+## :memo: License
+
+This project is under the MIT license. See the file [LICENSE](LICENSE) for more details.
+

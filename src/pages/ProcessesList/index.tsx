@@ -14,7 +14,7 @@ import './styles.css'
 const ProcessesList: React.FC = () => {
   const { userId } = useAuth()
 
-  const { processesList, getProcessesByContractor, deleteProcess } =
+  const { isFetching, processesList, getProcessesByContractor, deleteProcess } =
     useProcesses()
 
   useEffect(() => {
@@ -49,39 +49,43 @@ const ProcessesList: React.FC = () => {
           </Button>
         </Link>
       </div>
-      {processesList.length !== 0 ? (
-        <table className="sp-table">
-          <thead>
-            <tr>
-              <th>TÍTULO</th>
-              <th>PRAZO</th>
-              <th>CONTATO</th>
-              <th>AÇÕES</th>
-            </tr>
-          </thead>
-          <tbody>
-            {processesList.map(item => (
-              <tr className="sp-table-row" key={item.id}>
-                <td>{item.title}</td>
-                <td>{format(item.deadline, 'dd/MM/yyyy')}</td>
-                <td>{item.contact}</td>
-                <td>
-                  <Link to={`/processes/${item.id}/edit`}>
-                    <FontAwesomeIcon icon={faPen} className="edit-icon" />
-                  </Link>
-                  <Link
-                    to="/processes"
-                    onClick={() => {
-                      handleDelete(item.id)
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faTrash} className="trash-icon" />
-                  </Link>
-                </td>
+      {isFetching ? (
+        <div className="not-found title">Carregando...</div>
+      ) : processesList.length !== 0 ? (
+        <div style={{ overflowX: 'auto' }}>
+          <table className="sp-table">
+            <thead>
+              <tr>
+                <th>TÍTULO</th>
+                <th>PRAZO</th>
+                <th>CONTATO</th>
+                <th>AÇÕES</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {processesList.map(item => (
+                <tr className="sp-table-row" key={item.id}>
+                  <td>{item.title}</td>
+                  <td>{format(item.deadline, 'dd/MM/yyyy')}</td>
+                  <td>{item.contact}</td>
+                  <td style={{ display: 'flex' }}>
+                    <Link to={`/processes/${item.id}/edit`}>
+                      <FontAwesomeIcon icon={faPen} className="edit-icon" />
+                    </Link>
+                    <Link
+                      to="/processes"
+                      onClick={() => {
+                        handleDelete(item.id)
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faTrash} className="trash-icon" />
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <div className="not-found title">
           Você não tem processos seletivos cadastrados

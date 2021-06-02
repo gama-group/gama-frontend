@@ -62,7 +62,11 @@ const Header: React.FC = () => {
             <div className="profile-logout">
               <Link to="/profile" className="profile-logout">
                 <Icon>
-                  <FontAwesomeIcon icon={faUserCircle} className="fa-2x" />
+                  <FontAwesomeIcon
+                    icon={faUserCircle}
+                    className="fa-2x"
+                    color="#623CEA"
+                  />
                 </Icon>
               </Link>
               <Button

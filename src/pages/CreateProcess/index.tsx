@@ -61,24 +61,24 @@ const CreateProcess: React.FC = () => {
   }
 
   return (
-    <div className="processes-container">
-      <div className="processes-card">
-        <p className="processes-title">Criar Processo Seletivo</p>
-        <p className="processes-subtitle">
+    <div className="create-process-container">
+      <div className="create-process-card">
+        <p className="create-process-title">Criar Processo Seletivo</p>
+        <p className="create-process-subtitle">
           Adicione aqui novos processos seletivos, preenchendo as informações
           necessárias.
         </p>
-        <form className="processes-form" onSubmit={formik.handleSubmit}>
+        <form className="create-process-form" onSubmit={formik.handleSubmit}>
           <Columns>
             <Columns.Column size={12}>
               <Form.Field>
                 {formik.errors.title ? (
-                  <div className="processes-error">
+                  <div className="create-process-error">
                     <p>{formik.errors.title}</p>
                   </div>
                 ) : null}
                 <Form.Control>
-                  <Icon align="left" className="processes-icon">
+                  <Icon align="left" className="create-process-icon">
                     <div className="title-icon">
                       <svg
                         width="20"
@@ -98,7 +98,7 @@ const CreateProcess: React.FC = () => {
                     placeholder="Título"
                     id="title"
                     name="title"
-                    className="processes-input"
+                    className="create-process-input"
                     size="medium"
                     onChange={formik.handleChange}
                     value={formik.values.title}
@@ -109,10 +109,10 @@ const CreateProcess: React.FC = () => {
 
             <Columns.Column size={12}>
               <Columns className="field-inputs">
-                <Columns.Column size="half">
-                  <Form.Field className="w50 margin">
+                <Columns.Column size="half" mobile={{ size: 12 }}>
+                  <Form.Field className="margin">
                     {formik.errors.contact ? (
-                      <div className="processes-error">
+                      <div className="create-process-error">
                         <p>{formik.errors.contact}</p>
                       </div>
                     ) : null}
@@ -124,7 +124,7 @@ const CreateProcess: React.FC = () => {
                         placeholder="Contato"
                         id="contact"
                         name="contact"
-                        className="processes-input"
+                        className="create-process-input"
                         size="medium"
                         onChange={formik.handleChange}
                         value={formik.values.contact}
@@ -133,9 +133,9 @@ const CreateProcess: React.FC = () => {
                   </Form.Field>
                 </Columns.Column>
                 <Columns.Column>
-                  <Form.Field className="w50">
+                  <Form.Field>
                     {formik.errors.deadline ? (
-                      <div className="processes-error">
+                      <div className="create-process-error">
                         <p>{formik.errors.deadline}</p>
                       </div>
                     ) : null}
@@ -145,7 +145,7 @@ const CreateProcess: React.FC = () => {
                         id="deadline"
                         name="deadline"
                         type="date"
-                        className="processes-input"
+                        className="create-process-input"
                         size="medium"
                         onChange={formik.handleChange}
                         value={formik.values.deadline}
@@ -158,12 +158,12 @@ const CreateProcess: React.FC = () => {
             <Columns.Column size={12}>
               <Form.Field>
                 {formik.errors.description ? (
-                  <div className="processes-error">
+                  <div className="create-process-error">
                     <p>{formik.errors.description}</p>
                   </div>
                 ) : null}
                 <Form.Control fullwidth>
-                  <Icon align="left" className="processes-icon">
+                  <Icon align="left" className="create-process-icon">
                     <div className="title-icon">
                       <svg
                         width="20"
@@ -183,7 +183,7 @@ const CreateProcess: React.FC = () => {
                     placeholder="Descrição"
                     id="description"
                     name="description"
-                    className="processes-input input-descricao"
+                    className="create-process-input input-descricao"
                     size="medium"
                     onChange={formik.handleChange}
                     value={formik.values.description}
@@ -195,7 +195,7 @@ const CreateProcess: React.FC = () => {
             <Columns.Column>
               <Button
                 type="submit"
-                className="processes-button"
+                className="create-process-button"
                 loading={formik.isSubmitting}
                 fullwidth
               >

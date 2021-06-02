@@ -1,5 +1,5 @@
 .processes-list {
-  padding: 50px;
+  padding: 48px;
 }
 
 h3 {
@@ -24,6 +24,7 @@ h3 {
 
 .title-container {
   flex: 1;
+  margin-right: 16px;
 }
 
 .selective-process-card {
@@ -84,5 +85,32 @@ tr td:last-child {
 .not-found {
   display: flex;
   justify-content: center;
-  padding: 50px;
+  padding: 48px;
+}
+
+@media all and (max-width: 768px) {
+  .processes-list {
+    padding: 32px 16px;
+  }
+
+  .top-container {
+    flex-direction: column;
+  }
+
+  .title-container {
+    text-align: center;
+    margin-right: 0;
+  }
+
+  .top-container a {
+    width: 100%;
+    padding: 20px 0;
+    display: inline-flex;
+    justify-content: center;
+  }
+
+  .not-found {
+    padding: 32px 16px;
+    text-align: center;
+  }
 }

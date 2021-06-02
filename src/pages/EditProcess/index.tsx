@@ -111,15 +111,15 @@ const EditProcess: React.FC = () => {
   }, [process])
 
   return (
-    <div className="processes-container">
+    <div className="edit-process-container">
       {!process ? (
         <div className="not-found title">Carregando...</div>
       ) : process.contractorId === Number(userId) ? (
-        <div className="processes-card">
+        <div className="edit-process-card">
           <div className="card-top">
             <div>
-              <p className="processes-title">Editar Processo Seletivo</p>
-              <p className="processes-subtitle">
+              <p className="edit-process-title">Editar Processo Seletivo</p>
+              <p className="edit-process-subtitle">
                 Atualize aqui os processos seletivos, preenchendo as informações
                 necessárias.
               </p>
@@ -162,17 +162,17 @@ const EditProcess: React.FC = () => {
             </Modal.Card>
           </Modal>
 
-          <form className="processes-form" onSubmit={formik.handleSubmit}>
+          <form className="edit-process-form" onSubmit={formik.handleSubmit}>
             <Columns>
               <Columns.Column size={12}>
                 <Form.Field>
                   {formik.errors.title ? (
-                    <div className="processes-error">
+                    <div className="edit-process-error">
                       <p>{formik.errors.title}</p>
                     </div>
                   ) : null}
                   <Form.Control>
-                    <Icon align="left" className="processes-icon">
+                    <Icon align="left" className="edit-process-icon">
                       <div className="title-icon">
                         <svg
                           width="20"
@@ -192,7 +192,7 @@ const EditProcess: React.FC = () => {
                       placeholder="Título"
                       id="title"
                       name="title"
-                      className="processes-input"
+                      className="edit-process-input"
                       size="medium"
                       onChange={formik.handleChange}
                       value={formik.values.title}
@@ -203,10 +203,10 @@ const EditProcess: React.FC = () => {
 
               <Columns.Column size={12}>
                 <Columns>
-                  <Columns.Column size="half">
+                  <Columns.Column size="half" mobile={{ size: 12 }}>
                     <Form.Field className="w50 margin">
                       {formik.errors.deadline ? (
-                        <div className="processes-error">
+                        <div className="edit-process-error">
                           <p>{formik.errors.contact}</p>
                         </div>
                       ) : null}
@@ -218,7 +218,7 @@ const EditProcess: React.FC = () => {
                           placeholder="Contato"
                           id="contact"
                           name="contact"
-                          className="processes-input"
+                          className="edit-process-input"
                           size="medium"
                           onChange={formik.handleChange}
                           value={formik.values.contact}
@@ -230,7 +230,7 @@ const EditProcess: React.FC = () => {
                   <Columns.Column>
                     <Form.Field className="w50">
                       {formik.errors.deadline ? (
-                        <div className="processes-error">
+                        <div className="edit-process-error">
                           <p>{formik.errors.deadline}</p>
                         </div>
                       ) : null}
@@ -240,7 +240,7 @@ const EditProcess: React.FC = () => {
                           id="deadline"
                           name="deadline"
                           type="date"
-                          className="processes-input"
+                          className="edit-process-input"
                           size="medium"
                           onChange={formik.handleChange}
                           value={formik.values.deadline}
@@ -254,12 +254,12 @@ const EditProcess: React.FC = () => {
               <Columns.Column size={12}>
                 <Form.Field>
                   {formik.errors.description ? (
-                    <div className="processes-error">
+                    <div className="edit-process-error">
                       <p>{formik.errors.description}</p>
                     </div>
                   ) : null}
                   <Form.Control fullwidth>
-                    <Icon align="left" className="processes-icon">
+                    <Icon align="left" className="edit-process-icon">
                       <div className="title-icon">
                         <svg
                           width="20"
@@ -279,7 +279,7 @@ const EditProcess: React.FC = () => {
                       placeholder="Descrição"
                       id="description"
                       name="description"
-                      className="processes-input input-descricao"
+                      className="edit-process-input input-descricao"
                       size="medium"
                       onChange={formik.handleChange}
                       value={formik.values.description}
@@ -291,7 +291,7 @@ const EditProcess: React.FC = () => {
               <Columns.Column>
                 <Button
                   type="submit"
-                  className="processes-button"
+                  className="edit-process-button"
                   loading={formik.isSubmitting}
                   fullwidth
                 >

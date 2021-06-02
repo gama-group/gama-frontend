@@ -113,9 +113,9 @@ const EditProcess: React.FC = () => {
 
   return (
     <div className="edit-process-container">
-      {!process ? (
+      {isFetching ? (
         <div className="not-found title">Carregando...</div>
-      ) : process.contractorId === Number(userId) ? (
+      ) : process?.contractorId === Number(userId) ? (
         <div className="edit-process-card">
           <div className="card-top">
             <div>

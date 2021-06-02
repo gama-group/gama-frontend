@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react'
 import { Form, Button, Icon } from 'react-bulma-components'
 import { useFormik } from 'formik'
-import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faEnvelope,
@@ -19,8 +18,8 @@ import './styles.css'
 import useAuth from '../../hooks/useAuth'
 
 interface EditProfileFormData {
-  trade_name: string
-  company_name: string
+  tradeName: string
+  companyName: string
   cnpj: string
   email: string
   password: string
@@ -31,8 +30,8 @@ const Profile: React.FC = () => {
 
   const form1 = useFormik({
     initialValues: {
-      trade_name: '',
-      company_name: '',
+      tradeName: '',
+      companyName: '',
       cnpj: '',
       email: '',
       password: '',
@@ -58,16 +57,16 @@ const Profile: React.FC = () => {
   })
 
   async function handleSubmit({
-    trade_name,
-    company_name,
+    tradeName,
+    companyName,
     cnpj,
     email,
     password,
   }: EditProfileFormData) {
     try {
-      await api.put(`/update/${userId}`, {
-        trade_name,
-        company_name,
+      await api.put(`/contratante/${userId}`, {
+        tradeName,
+        companyName,
         cnpj,
         email,
         password,
@@ -83,14 +82,14 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const response = await api.get(`/contratante/${userId}`)
+      const response = await api.get(`/contratante?id=${userId}`)
 
       form1.setValues({
-        trade_name: response.data.trade_name,
-        company_name: response.data.company_name,
+        tradeName: response.data.trade_name,
+        companyName: response.data.company_name,
         cnpj: response.data.cnpj,
         email: response.data.email,
-        password: response.data.password,
+        password: '',
       })
     }
 
@@ -109,9 +108,9 @@ const Profile: React.FC = () => {
           <form className="profile-form" onSubmit={form1.handleSubmit}>
             <p className="profile-form-title">Alterar dados</p>
             <Form.Field>
-              {form1.errors.trade_name ? (
+              {form1.errors.tradeName ? (
                 <div className="profile-error">
-                  <p>{form1.errors.trade_name}</p>
+                  <p>{form1.errors.tradeName}</p>
                 </div>
               ) : null}
               <Form.Control>
@@ -125,15 +124,15 @@ const Profile: React.FC = () => {
                   className="profile-input"
                   size="medium"
                   onChange={form1.handleChange}
-                  value={form1.values.trade_name}
+                  value={form1.values.tradeName}
                 />
               </Form.Control>
             </Form.Field>
 
             <Form.Field>
-              {form1.errors.company_name ? (
+              {form1.errors.companyName ? (
                 <div className="profile-error">
-                  <p>{form1.errors.company_name}</p>
+                  <p>{form1.errors.companyName}</p>
                 </div>
               ) : null}
               <Form.Control fullwidth>
@@ -147,7 +146,7 @@ const Profile: React.FC = () => {
                   className="profile-input"
                   size="medium"
                   onChange={form1.handleChange}
-                  value={form1.values.company_name}
+                  value={form1.values.companyName}
                 />
               </Form.Control>
             </Form.Field>

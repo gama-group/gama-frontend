@@ -1,33 +1,41 @@
-import React from 'react'
+/* eslint-disable camelcase */
+import React, { useEffect } from 'react'
 import { Form, Button, Icon } from 'react-bulma-components'
 import { useFormik } from 'formik'
+import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faEnvelope,
   faUser,
   faBuilding,
   faKey,
+  faLock,
 } from '@fortawesome/free-solid-svg-icons'
 import * as Yup from 'yup'
+import { toast } from 'react-toastify'
+import api from '../../api'
 
 import './styles.css'
+import useAuth from '../../hooks/useAuth'
 
-// interface FirstFormData {
-//   tradeName: string
-//   companyName: string
-//   cnpj: string
-// }
-
-// interface SecondFormData {
-//   email: string
-// }
+interface EditProfileFormData {
+  trade_name: string
+  company_name: string
+  cnpj: string
+  email: string
+  password: string
+}
 
 const Profile: React.FC = () => {
+  const { userId } = useAuth()
+
   const form1 = useFormik({
     initialValues: {
-      tradeName: '',
-      companyName: '',
+      trade_name: '',
+      company_name: '',
       cnpj: '',
+      email: '',
+      password: '',
     },
     validationSchema: Yup.object({
       tradeName: Yup.string().required('Insira um nome fantasia.'),
@@ -35,29 +43,60 @@ const Profile: React.FC = () => {
       cnpj: Yup.string()
         .required('Insira um CNPJ.')
         .matches(/^[0-9]{14}$/, 'CNPJ Inválido.'),
-    }),
-    validateOnChange: false,
-    onSubmit: values => {
-      // eslint-disable-next-line no-alert
-      alert(JSON.stringify(values, null, 2))
-    },
-  })
-
-  const form2 = useFormik({
-    initialValues: {
-      email: '',
-    },
-    validationSchema: Yup.object({
       email: Yup.string()
         .email('Endereço de e-mail inválido.')
         .required('Insira um e-mail.'),
+      password: Yup.string()
+        .required('Insira uma senha.')
+        .matches(
+          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+          'Deve possuir 8 caracteres, um maiúsculo, um minúsculo, um número e um caractere especial.',
+        ),
     }),
     validateOnChange: false,
-    onSubmit: values => {
-      // eslint-disable-next-line no-alert
-      alert(JSON.stringify(values, null, 2))
-    },
+    onSubmit: handleSubmit,
   })
+
+  async function handleSubmit({
+    trade_name,
+    company_name,
+    cnpj,
+    email,
+    password,
+  }: EditProfileFormData) {
+    try {
+      await api.put(`/update/${userId}`, {
+        trade_name,
+        company_name,
+        cnpj,
+        email,
+        password,
+      })
+
+      toast.success('Perfil atualizado com sucesso!')
+    } catch {
+      toast.error('Não foi possível atualizar seu perfil')
+    } finally {
+      form1.setSubmitting(false)
+    }
+  }
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const response = await api.get(`/contratante/${userId}`)
+
+      form1.setValues({
+        trade_name: response.data.trade_name,
+        company_name: response.data.company_name,
+        cnpj: response.data.cnpj,
+        email: response.data.email,
+        password: response.data.password,
+      })
+    }
+
+    fetchProfile()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="profile-container">
@@ -70,9 +109,9 @@ const Profile: React.FC = () => {
           <form className="profile-form" onSubmit={form1.handleSubmit}>
             <p className="profile-form-title">Alterar dados</p>
             <Form.Field>
-              {form1.errors.tradeName ? (
+              {form1.errors.trade_name ? (
                 <div className="profile-error">
-                  <p>{form1.errors.tradeName}</p>
+                  <p>{form1.errors.trade_name}</p>
                 </div>
               ) : null}
               <Form.Control>
@@ -86,15 +125,15 @@ const Profile: React.FC = () => {
                   className="profile-input"
                   size="medium"
                   onChange={form1.handleChange}
-                  value={form1.values.tradeName}
+                  value={form1.values.trade_name}
                 />
               </Form.Control>
             </Form.Field>
 
             <Form.Field>
-              {form1.errors.companyName ? (
+              {form1.errors.company_name ? (
                 <div className="profile-error">
-                  <p>{form1.errors.companyName}</p>
+                  <p>{form1.errors.company_name}</p>
                 </div>
               ) : null}
               <Form.Control fullwidth>
@@ -108,7 +147,7 @@ const Profile: React.FC = () => {
                   className="profile-input"
                   size="medium"
                   onChange={form1.handleChange}
-                  value={form1.values.companyName}
+                  value={form1.values.company_name}
                 />
               </Form.Control>
             </Form.Field>
@@ -135,6 +174,51 @@ const Profile: React.FC = () => {
               </Form.Control>
             </Form.Field>
 
+            {form1.errors.email ? (
+              <div>
+                <p className="register-error">{form1.errors.email}</p>
+              </div>
+            ) : null}
+            <Form.Field>
+              <Form.Control>
+                <Icon align="left" className="register-icon">
+                  <FontAwesomeIcon icon={faEnvelope} />
+                </Icon>
+                <Form.Input
+                  placeholder="E-mail"
+                  id="email"
+                  name="email"
+                  className="register-input"
+                  size="medium"
+                  onChange={form1.handleChange}
+                  value={form1.values.email}
+                />
+              </Form.Control>
+            </Form.Field>
+
+            {form1.errors.password ? (
+              <div>
+                <p className="register-error">{form1.errors.password}</p>
+              </div>
+            ) : null}
+            <Form.Field>
+              <Form.Control>
+                <Icon align="left" className="register-icon">
+                  <FontAwesomeIcon icon={faLock} />
+                </Icon>
+                <Form.Input
+                  placeholder="Senha"
+                  id="password"
+                  name="password"
+                  type="password"
+                  className="register-input"
+                  size="medium"
+                  onChange={form1.handleChange}
+                  value={form1.values.password}
+                />
+              </Form.Control>
+            </Form.Field>
+
             <Button
               type="submit"
               className="profile-button"
@@ -147,7 +231,7 @@ const Profile: React.FC = () => {
 
           <div className="margin" />
 
-          <form className="profile-form" onSubmit={form2.handleSubmit}>
+          {/* <form className="profile-form" onSubmit={form2.handleSubmit}>
             <p className="profile-form-title">Alterar e-mail</p>
             {form2.errors.email ? (
               <div>
@@ -178,7 +262,7 @@ const Profile: React.FC = () => {
             >
               Enviar
             </Button>
-          </form>
+          </form> */}
         </div>
       </div>
     </div>

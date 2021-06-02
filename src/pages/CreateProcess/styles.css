@@ -7,7 +7,7 @@ p {
 .processes-container {
   width: 100%;
   height: inherit;
-  padding: 0 3rem;
+  padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: center;

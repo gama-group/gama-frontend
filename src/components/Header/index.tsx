@@ -40,7 +40,7 @@ const Header: React.FC = () => {
   useAutoClose({ ref, setOpen })
 
   return (
-    <div className="header px-6">
+    <div className="header-container">
       <div className="header-links">
         <Link to="/" className="header-title">
           Gama

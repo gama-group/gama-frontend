@@ -1,5 +1,5 @@
 .processes-list {
-  padding: 50px;
+  padding: 48px;
 }
 
 h3 {
@@ -17,13 +17,14 @@ h3 {
 }
 
 .top-container {
-  display: block;
+  display: flex;
   flex-direction: row;
   align-items: center;
 }
 
 .title-container {
   flex: 1;
+  margin-right: 16px;
 }
 
 .selective-process-card {
@@ -84,13 +85,21 @@ tr td:last-child {
 .not-found {
   display: flex;
   justify-content: center;
-  padding: 50px;
+  padding: 48px;
 }
 
-@media all and (max-width: 800px) {
+@media all and (max-width: 768px) {
+  .processes-list {
+    padding: 32px 16px;
+  }
+
+  .top-container {
+    flex-direction: column;
+  }
 
   .title-container {
     text-align: center;
+    margin-right: 0;
   }
 
   .top-container a {
@@ -100,5 +109,8 @@ tr td:last-child {
     justify-content: center;
   }
 
-  
+  .not-found {
+    padding: 32px 16px;
+    text-align: center;
+  }
 }

@@ -26,39 +26,6 @@ interface RegisterFormData {
   password: string
 }
 
-const validate = values => {
-  interface tsTrash {
-    [key: string]: string
-  }
-  const errors: tsTrash = {}
-
-  if (values.trade_name === '') {
-    errors.trade_name = 'Nome inválido'
-  }
-
-  if (values.company_name === '') {
-    errors.company_name = 'Razão social inválida'
-  }
-
-  if (!/^[0-9]{14}$/i.test(values.cnpj)) {
-    errors.cnpj = 'CNPJ inválido, são necessários 14 digitos'
-  }
-  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'E-mail inválido'
-  }
-
-  if (
-    values.password === '' ||
-    (values.password &&
-      values.password !== undefined &&
-      values.password.length < 8)
-  ) {
-    errors.password = 'Senha deve ter no mínimo 8'
-  }
-
-  return errors
-}
-
 const Register: React.FC = () => {
   const history = useHistory()
   const formik = useFormik({

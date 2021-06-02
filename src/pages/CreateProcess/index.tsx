@@ -52,11 +52,11 @@ const CreateProcess: React.FC = () => {
       await createProcess(title, description, new Date(deadline), contact)
 
       toast.success('Processo seletivo criado com sucesso!')
+      history.push('/processes')
     } catch {
       toast.error('Não foi possível criar este processo seletivo')
     } finally {
       formik.setSubmitting(false)
-      history.push('/processes')
     }
   }
 

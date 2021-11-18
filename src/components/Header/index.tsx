@@ -37,8 +37,8 @@ const Header: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
 
-  const getProcessesLinkClassFromState = (open: boolean) => {
-    if (open) {
+  const getProcessesLinkClassFromState = (isOpen: boolean) => {
+    if (isOpen) {
       return 'is-active'
     }
     return ''

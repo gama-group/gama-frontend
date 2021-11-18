@@ -33,25 +33,13 @@ const ProcessesList: React.FC = () => {
     }
   }
 
-  return (
-    <div className="processes-list">
-      <div className="top-container">
-        <div className="title-container">
-          <h3>Processos Seletivos</h3>
-          <div className="subtitle">
-            Aqui ficam todos os seus processos seletivos, gerencie-os como
-            desejar.
-          </div>
-        </div>
-        <Link to="/processes/create">
-          <Button type="button" className="header-button">
-            Criar Processo Seletivo
-          </Button>
-        </Link>
-      </div>
-      {isFetching ? (
-        <div className="not-found title">Carregando...</div>
-      ) : processesList.length !== 0 ? (
+  const getProcessesList = () => {
+    if (isFetching) {
+      return <div className="not-found title">Carregando...</div>
+    }
+
+    if (processesList.length !== 0) {
+      return (
         <div style={{ overflowX: 'auto' }}>
           <table className="sp-table">
             <thead>
@@ -86,11 +74,31 @@ const ProcessesList: React.FC = () => {
             </tbody>
           </table>
         </div>
-      ) : (
-        <div className="not-found title">
-          Você não tem processos seletivos cadastrados
+      )
+    }
+    return (
+      <div className="not-found title">
+        Você não tem processos seletivos cadastrados
+      </div>
+    )
+  }
+  return (
+    <div className="processes-list">
+      <div className="top-container">
+        <div className="title-container">
+          <h3>Processos Seletivos</h3>
+          <div className="subtitle">
+            Aqui ficam todos os seus processos seletivos, gerencie-os como
+            desejar.
+          </div>
         </div>
-      )}
+        <Link to="/processes/create">
+          <Button type="button" className="header-button">
+            Criar Processo Seletivo
+          </Button>
+        </Link>
+      </div>
+      {getProcessesList()}
     </div>
   )
 }

@@ -1,5 +1,5 @@
 p {
-  font-family: 'Nunito Sans';
+  font-family: 'Nunito Sans', sans-serif;
   font-weight: 400;
   color: #000;
 }
@@ -21,7 +21,7 @@ p {
 
 .create-process-title {
   margin-bottom: 8px;
-  font-family: 'Quicksand';
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 28.8px;
   color: #000;
@@ -29,7 +29,7 @@ p {
 }
 
 .create-process-subtitle {
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 300;
   font-size: 14.4px;
   margin-bottom: 24px;

@@ -12,7 +12,7 @@ import useAuth from '../hooks/useAuth'
 import { AuthState } from '../contexts/auth/types'
 import Splash from '../components/Splash'
 
-import ProcessesRoutes from './processes'
+import ProcessesRoutes from './ProcessesRoutes'
 
 const Routes: React.FC = () => {
   const { state: authState, loadToken } = useAuth()

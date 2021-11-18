@@ -1,12 +1,12 @@
 p {
-  font-family: 'Nunito Sans';
+  font-family: 'Nunito Sans', sans-serif;
   font-weight: 400;
   color: #000;
 }
 
 .login-logo {
   font-size: 24px;
-  font-family: Quicksand;
+  font-family: Quicksand, sans-serif;
   font-weight: bold;
   color: #623CEA;
   margin-bottom: 16px;
@@ -36,7 +36,7 @@ p {
 
 .login-title {
   margin-bottom: 8px;
-  font-family: 'Quicksand';
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 48px;
   color: #000;
@@ -44,7 +44,7 @@ p {
 }
 
 .login-subtitle {
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-size: 20px;
   margin-bottom: 24px;
   text-align: center;

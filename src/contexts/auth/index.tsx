@@ -13,19 +13,19 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [userId, setUserId] = useState<string>()
   const [authState, setAuthState] = useState<AuthState>(AuthState.IDLE)
 
-  const manageToken = (token: string | undefined) => {
-    if (token === undefined) {
+  const manageToken = (tokenToManage: string | undefined) => {
+    if (tokenToManage === undefined) {
       setToken(undefined)
       setAuthState(AuthState.UNAUTHENTICATED)
       localStorage.removeItem(AUTH_TOKEN_KEY)
       return
     }
 
-    setToken(token)
+    setToken(tokenToManage)
     setAuthState(AuthState.AUTHENTICATED)
-    localStorage.setItem(AUTH_TOKEN_KEY, token)
+    localStorage.setItem(AUTH_TOKEN_KEY, tokenToManage)
 
-    const { id } = jwtDecode<{ id: string }>(token)
+    const { id } = jwtDecode<{ id: string }>(tokenToManage)
     setUserId(id)
 
     api.interceptors.request.use(
@@ -35,7 +35,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         return {
           ...config,
           headers: {
-            Authorization: token,
+            Authorization: tokenToManage,
           },
         }
       },
@@ -46,9 +46,9 @@ export const AuthProvider: React.FC = ({ children }) => {
   const login = useCallback(async (email: string, password: string) => {
     const response = await api.post('login', { email, password })
 
-    const token = response.data.authorization as string
+    const authorizationToken = response.data.authorization as string
 
-    manageToken(token)
+    manageToken(authorizationToken)
   }, [])
 
   const register = useCallback(
@@ -67,9 +67,9 @@ export const AuthProvider: React.FC = ({ children }) => {
         password,
       })
 
-      const token = response.data.authorization as string
+      const authorizationToken = response.data.authorization as string
 
-      manageToken(token)
+      manageToken(authorizationToken)
     },
     [],
   )
@@ -79,9 +79,9 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, [])
 
   const loadToken = useCallback(() => {
-    const token = localStorage.getItem(AUTH_TOKEN_KEY)
+    const storedToken = localStorage.getItem(AUTH_TOKEN_KEY)
 
-    manageToken(token ?? undefined)
+    manageToken(storedToken ?? undefined)
   }, [])
 
   const isAuthenticated = useMemo(

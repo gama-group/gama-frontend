@@ -21,6 +21,14 @@ export const ProcessesProvider: React.FC = ({ children }) => {
   const [processes, setProcesses] = useState<Process[]>([])
   const [isFetching, setFetching] = useState(false)
 
+  const mapProcess = process => ({
+    id: process.id,
+    title: process.title,
+    description: process.description,
+    deadline: parse(process.deadline, 'yyyy-MM-dd', new Date()),
+    contact: process.method_of_contact,
+  })
+
   const getAllProcesses = useCallback(async () => {
     setFetching(true)
 
@@ -28,15 +36,7 @@ export const ProcessesProvider: React.FC = ({ children }) => {
       '/processo-seletivo/todos',
     )
 
-    setProcesses(
-      response.data.map(process => ({
-        id: process.id,
-        title: process.title,
-        description: process.description,
-        deadline: parse(process.deadline, 'yyyy-MM-dd', new Date()),
-        contact: process.method_of_contact,
-      })),
-    )
+    setProcesses(response.data.map(mapProcess))
 
     setFetching(false)
   }, [])
@@ -48,15 +48,7 @@ export const ProcessesProvider: React.FC = ({ children }) => {
       `/processo-seletivo/${contractorId}`,
     )
 
-    setProcesses(
-      response.data.map(process => ({
-        id: process.id,
-        title: process.title,
-        description: process.description,
-        deadline: parse(process.deadline, 'yyyy-MM-dd', new Date()),
-        contact: process.method_of_contact,
-      })),
-    )
+    setProcesses(response.data.map(mapProcess))
 
     setFetching(false)
   }, [])

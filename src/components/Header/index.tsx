@@ -37,6 +37,13 @@ const Header: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
 
+  const getProcessesLinkClassFromState = (isOpen: boolean) => {
+    if (isOpen) {
+      return 'is-active'
+    }
+    return ''
+  }
+
   useAutoClose({ ref, setOpen })
 
   return (
@@ -83,7 +90,9 @@ const Header: React.FC = () => {
           <div className="is-hidden-tablet">
             <div
               ref={ref}
-              className={`dropdown is-right ${open ? 'is-active' : ''}`}
+              className={`dropdown is-right ${getProcessesLinkClassFromState(
+                open,
+              )}`}
             >
               <div
                 style={{ cursor: 'pointer' }}

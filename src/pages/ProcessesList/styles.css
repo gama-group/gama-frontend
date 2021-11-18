@@ -3,14 +3,14 @@
 }
 
 h3 {
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 36px;
 }
 
 .subtitle {
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-style: normal;
   font-weight: 300;
   font-size: 18px;
@@ -36,7 +36,7 @@ h3 {
   border-collapse: separate;
   border-spacing: 0 10px;
 
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -77,7 +77,7 @@ tr td:last-child {
 }
 
 .title {
-  font-family: Quicksand;
+  font-family: Quicksand, sans-serif;
   font-size: 24px;
   font-weight: bold;
 }

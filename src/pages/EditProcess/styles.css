@@ -1,5 +1,5 @@
 p {
-  font-family: 'Nunito Sans';
+  font-family: 'Nunito Sans', sans-serif;
   font-weight: 400;
   color: #000;
 }
@@ -36,7 +36,7 @@ p {
 
 .modal-remove-title {
   margin-bottom: 8px;
-  font-family: 'Quicksand';
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 24px;
   color: #000;
@@ -74,9 +74,6 @@ p {
   background-color: #D4D4D4;
 }
 
-
-.modal-remove-no {}
-
 .edit-process-card {
   width: 100%;
   display: flex;
@@ -85,7 +82,7 @@ p {
 
 .edit-process-title {
   margin-bottom: 8px;
-  font-family: 'Quicksand';
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 28.8px;
   color: #000;
@@ -93,7 +90,7 @@ p {
 }
 
 .edit-process-subtitle {
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 300;
   font-size: 14.4px;
   margin-bottom: 24px;

@@ -41,7 +41,7 @@ const Register: React.FC = () => {
       company_name: Yup.string().required('Insira a razão social.'),
       cnpj: Yup.string()
         .required('Insira um CNPJ.')
-        .matches(/^[0-9]{14}$/, 'CNPJ Inválido.'),
+        .matches(/^\d{14}$/, 'CNPJ Inválido.'),
       email: Yup.string()
         .email('Endereço de e-mail inválido.')
         .required('Insira um e-mail.'),

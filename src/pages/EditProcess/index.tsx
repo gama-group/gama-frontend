@@ -99,23 +99,13 @@ const EditProcess: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    if (!process) return
+  const getEditProcessComponent = () => {
+    if (isFetching) {
+      return <div className="not-found title">Carregando...</div>
+    }
 
-    formik.setValues({
-      title: process.title,
-      description: process.description,
-      deadline: format(process.deadline, 'yyyy-MM-dd'),
-      contact: process.contact,
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [process])
-
-  return (
-    <div className="edit-process-container">
-      {isFetching ? (
-        <div className="not-found title">Carregando...</div>
-      ) : process?.contractorId === Number(userId) ? (
+    if (process?.contractorId === Number(userId)) {
+      return (
         <div className="edit-process-card">
           <div className="card-top">
             <div>
@@ -155,7 +145,7 @@ const EditProcess: React.FC = () => {
               </Modal.Card.Body>
               <Modal.Card.Footer className="modal-remove-buttons">
                 {/* Tentar usar o onClick no Button abaixo para executar a função de chamada da api, mas talvez tenha que
-              criar um Form antes.. */}
+          criar um Form antes.. */}
 
                 <Button onClick={handleDelete}>Sim</Button>
                 <Button onClick={() => setModalOpen(false)}>Não</Button>
@@ -302,12 +292,28 @@ const EditProcess: React.FC = () => {
             </Columns>
           </form>
         </div>
-      ) : (
-        <div className="not-found title">
-          Você não possui permissão para editar este processo seletivo.
-        </div>
-      )}
-    </div>
+      )
+    }
+    return (
+      <div className="not-found title">
+        Você não possui permissão para editar este processo seletivo.
+      </div>
+    )
+  }
+  useEffect(() => {
+    if (!process) return
+
+    formik.setValues({
+      title: process.title,
+      description: process.description,
+      deadline: format(process.deadline, 'yyyy-MM-dd'),
+      contact: process.contact,
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [process])
+
+  return (
+    <div className="edit-process-container">{getEditProcessComponent()}</div>
   )
 }
 

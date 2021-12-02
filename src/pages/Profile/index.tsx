@@ -16,6 +16,9 @@ import api from '../../api'
 import './styles.css'
 import useAuth from '../../hooks/useAuth'
 
+const generateQrCodeUrl = (userEmail: string, secret: string) =>
+  `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=otpauth://totp/${userEmail}?secret=${secret}&issuer=Gama`
+
 interface EditProfileFormData {
   tradeName: string
   companyName: string
@@ -25,7 +28,8 @@ interface EditProfileFormData {
 }
 
 const Profile: React.FC = () => {
-  const { userId } = useAuth()
+  const { userId, uses2FA, token2FA, enable2FA, manageToken2FA } = useAuth()
+  const requestEnable2FA = () => enable2FA(userId || '')
 
   const form1 = useFormik({
     initialValues: {
@@ -83,6 +87,8 @@ const Profile: React.FC = () => {
     const fetchProfile = async () => {
       const response = await api.get(`/contratante?id=${userId}`)
 
+      if (response.data.token) manageToken2FA(response.data.token)
+
       form1.setValues({
         tradeName: response.data.trade_name,
         companyName: response.data.company_name,
@@ -95,6 +101,8 @@ const Profile: React.FC = () => {
     fetchProfile()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const is2FAEnabled = () => (uses2FA || token2FA) as boolean
 
   return (
     <div className="profile-container">
@@ -231,6 +239,33 @@ const Profile: React.FC = () => {
               >
                 Salvar
               </Button>
+
+              <Button
+                onClick={requestEnable2FA}
+                className={
+                  is2FAEnabled()
+                    ? 'button is-success'
+                    : 'two-factor-verification-button'
+                }
+                size="medium"
+                disabled={is2FAEnabled()}
+                fullwidth
+              >
+                {is2FAEnabled()
+                  ? 'Autenticação em duas etapas ativada ✓'
+                  : 'Ativar autenticação em Duas Etapas'}
+              </Button>
+              {token2FA && (
+                <div className="card qr-code-card">
+                  <p className="qr-code-instructions">
+                    Escaneie o código abaixo em seu atenticador de preferência
+                  </p>
+                  <img
+                    src={generateQrCodeUrl(form1.values.email, token2FA)}
+                    alt="qrcode"
+                  />
+                </div>
+              )}
             </form>
           </Columns.Column>
 

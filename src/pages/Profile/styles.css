@@ -64,6 +64,22 @@ p {
   font-weight: 600;
 }
 
+.two-factor-verification-button {
+  width: 350px !important;
+  margin-bottom: 20px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #623CEA;
+  color: white;
+  font-size: 22.4px;
+}
+
+.two-factor-verification-button:hover {
+  color: white;
+  background-color: #5432cf;
+}
+
+
 .profile-button {
   width: 120px !important;
   margin-bottom: 20px;
@@ -112,12 +128,31 @@ p {
   color: #bb1d2a;
 }
 
+.qr-code-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.qr-code-instructions {
+  font-family: Nunito, sans-serif;
+  font-weight: 300;
+  font-size: 17.4px;
+  margin-bottom: 20px;
+}
+
 @media all and (max-width: 768px) {
   .profile-container {
     padding: 32px 16px
   }
 
   .profile-button {
+    width: 100% !important;
+  }
+
+  .two-factor-verification-button {
     width: 100% !important;
   }
 }

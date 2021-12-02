@@ -50,7 +50,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     getAllProcesses()
-  }, [])
+  }, [getAllProcesses])
 
   return <div className="process-board">{getProcessesBoard()}</div>
 }

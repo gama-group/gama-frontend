@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { createContext, useCallback, useState, useMemo } from 'react'
 import jwtDecode from 'jwt-decode'
 
@@ -12,6 +13,8 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [token, setToken] = useState<string>()
   const [userId, setUserId] = useState<string>()
   const [authState, setAuthState] = useState<AuthState>(AuthState.IDLE)
+  const [uses2FA, setUses2FA] = useState<boolean>(false)
+  const [token2FA, setToken2FA] = useState<string>('')
 
   const manageToken = (tokenToManage: string | undefined) => {
     if (tokenToManage === undefined) {
@@ -43,12 +46,24 @@ export const AuthProvider: React.FC = ({ children }) => {
     )
   }
 
+  const manageToken2FA = useCallback(async (token: string) => {
+    setToken2FA(token)
+  }, [])
+
   const login = useCallback(async (email: string, password: string) => {
     const response = await api.post('login', { email, password })
 
-    const authorizationToken = response.data.authorization as string
+    if (response.data.authorization) {
+      const authorizationToken = response.data.authorization as string
+      manageToken(authorizationToken)
+      return
+    }
+    const usesTwoFactorAuthentication = response.data.twoStepEnabled as boolean
+    const { id } = response.data
 
-    manageToken(authorizationToken)
+    setUses2FA(usesTwoFactorAuthentication)
+    setUserId(id)
+    setAuthState(AuthState.UNAUTHENTICATED_2FA)
   }, [])
 
   const register = useCallback(
@@ -84,8 +99,29 @@ export const AuthProvider: React.FC = ({ children }) => {
     manageToken(storedToken ?? undefined)
   }, [])
 
+  const enable2FA = useCallback(async (userId: string) => {
+    const response = await api.put(`/contratante/ativarduasetapas/${userId}`)
+    const { token2_f_a } = response.data
+    setUses2FA(true)
+    setToken2FA(token2_f_a)
+  }, [])
+
+  const login2FA = useCallback(async (userId: string, token: string) => {
+    const response = await api.post(`contratante/validartoken/${userId}`, {
+      token,
+    })
+
+    const { authorization } = response.data
+    manageToken(authorization)
+  }, [])
+
   const isAuthenticated = useMemo(
     () => authState === AuthState.AUTHENTICATED,
+    [authState],
+  )
+
+  const isAuthenticated2FA = useMemo(
+    () => authState === AuthState.UNAUTHENTICATED_2FA,
     [authState],
   )
 
@@ -93,8 +129,14 @@ export const AuthProvider: React.FC = ({ children }) => {
     <AuthContext.Provider
       value={{
         isAuthenticated,
+        isAuthenticated2FA,
+        uses2FA,
+        enable2FA,
+        login2FA,
+        manageToken2FA,
         state: authState,
         token,
+        token2FA,
         userId,
         login,
         register,

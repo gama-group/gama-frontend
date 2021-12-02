@@ -16,25 +16,33 @@ const ProtectedRoute: React.FC<Props> = ({
   component: Component,
   ...routeProps
 }) => {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, isAuthenticated2FA } = useAuth()
 
-  return (
-    <Route
-      {...routeProps}
-      render={props => {
-        return !isAuthenticated ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/',
-              state: { from: props.location },
-            }}
-          />
-        )
-      }}
-    />
-  )
+  const getAuthRoute = props => {
+    if (!isAuthenticated) {
+      return <Component {...props} />
+    }
+
+    if (isAuthenticated2FA) {
+      return (
+        <Redirect
+          to={{
+            pathname: '/login2fa',
+            state: { from: props.location },
+          }}
+        />
+      )
+    }
+    return (
+      <Redirect
+        to={{
+          pathname: '/',
+          state: { from: props.location },
+        }}
+      />
+    )
+  }
+  return <Route {...routeProps} render={props => getAuthRoute(props)} />
 }
 
 export default ProtectedRoute
